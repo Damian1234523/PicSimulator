@@ -18,6 +18,8 @@ namespace PicSim
             InitializeComponent();
         }
 
+        SourceManager sourceManager = new SourceManager();
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
 ;
@@ -37,6 +39,8 @@ namespace PicSim
                 {
                     rows.Add(sr.ReadLine());
                 }
+                sourceManager.ResetSource();
+                sourceManager.FillSource(rows);
                 sr.Close();
             }
         }
