@@ -16,5 +16,25 @@ namespace PicSim
         {
             InitializeComponent();
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dokuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btOneStep_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btRun_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
