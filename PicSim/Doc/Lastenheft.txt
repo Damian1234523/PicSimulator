@@ -1,0 +1,16 @@
+Notwendige Bestandteile:
+- LST Datein einlesen
+- Befehle in der LST Datei von Text/Kommentaren trennen
+- Breakpoints setzen 
+- Werte seriell lesen und schreiben 
+- Register Modus wechseln
+- Hex Befehle umsetzten (GOTO,CALL,RTLW,RETURN,DECFSZ,INCFSZ,RRF,RLF,SLEEP
+- Byt orientierte Befehle ausführen
+- Indirektes adressieren
+- Timer-Interrupt 
+- PCL und PCLATH-Register
+- EEPROMs lesen und beschreiben
+
+
+Nice2Have
+- RAM anzeigen
