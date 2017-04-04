@@ -42,6 +42,7 @@ namespace PicSim
                 sourceManager.ResetSource();
                 sourceManager.FillSource(rows);
                 sr.Close();
+                printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
             }
         }
 
@@ -58,6 +59,21 @@ namespace PicSim
         private void btRun_Click(object sender, EventArgs e)
         {
 
+        }
+
+        void printSource(List<int> arg1, List<string> sourceComplete)
+        {
+            argumentListBox1.Items.Clear();
+            completeListBox1.Items.Clear();
+            foreach (int arg in arg1)
+            {
+                argumentListBox1.Items.Add(arg.ToString("X4"));
+            }
+
+            foreach (string line in sourceComplete)
+            {
+                completeListBox1.Items.Add(line);
+            }
         }
     }
 }

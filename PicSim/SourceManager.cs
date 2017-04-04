@@ -8,9 +8,18 @@ namespace PicSim
 {
     class SourceManager
     {
-        List<string> sourceComplete = new List<string>();
-        List<int> args1 = new List<int>();
+        private List<string> sourceComplete = new List<string>();
+        private List<int> args1 = new List<int>();
 
+        public List<string> GetSourceComplete()
+        {
+            return sourceComplete;
+        }
+
+        public List<int> GetArgs1()
+        {
+            return args1;
+        }
 
         public void FillSource(List<string> l)
         {
