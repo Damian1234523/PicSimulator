@@ -26,7 +26,6 @@ namespace PicSim
             sourceComplete = l;
             foreach (string line in sourceComplete)
             {
-                Console.WriteLine(line);
                 string sArg1 = line.Substring(5, 4);
 
                 if (sArg1 != "    ")
@@ -39,6 +38,7 @@ namespace PicSim
         public void ResetSource()
         {
             sourceComplete.Clear();
+            args1.Clear();
         }
     }
 }
