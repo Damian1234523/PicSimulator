@@ -21,6 +21,11 @@ namespace PicSim
             return args1;
         }
 
+        public int GetSingleArg1(int pc)
+        {
+            return args1[pc];
+        }
+
         public void FillSource(List<string> l)
         {
             sourceComplete = l;

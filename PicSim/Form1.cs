@@ -19,6 +19,7 @@ namespace PicSim
         }
 
         SourceManager sourceManager = new SourceManager();
+        Executor executor = new Executor();
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -53,7 +54,8 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-
+            //executor.Execute(0x0733);
+            executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
         }
 
         private void btRun_Click(object sender, EventArgs e)
