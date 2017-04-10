@@ -36,14 +36,17 @@ namespace PicSim
             } else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0101_0000_0000)
             {
                 Console.WriteLine("ANDWF");
+                ANDWF(arg);
             }
             else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_1000_0000)
             {
                 Console.WriteLine("CLRF");
+                CLRF(arg);
             }
             else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_0000_0000)
             {
                 Console.WriteLine("CLRW");
+                CLRW();
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1001_0000_0000)
             {
@@ -169,32 +172,35 @@ namespace PicSim
             {
                 Console.WriteLine("XORLW");
             }
-            pc++; //TODO: dummypc++ später entfernen
+            pc++; //pc in register implementieren?
 
         }
 
-        //TODO: Spzialfälle wie z.B. Statusregister implementieren
-        private void writeRegister(int addr, int value)
+        private void CLRW()
         {
-            if ((R[3] & 0b10_0000 ) == 0)
-            {
-                R[addr] = value;
-            } else if ((R[3] & 0b10_0000) == 0b10_0000)
-            {
-                R[addr + 128] = value;
-            }
+            W = 0;
         }
 
-        private int readRegister(int addr)
+        private void CLRF(int arg)
         {
-            if ((R[3] & 0b10_0000) == 0)
+            int regaddr = 0b0111_1111 & arg;
+            writeRegister(regaddr, 0);
+        }
+
+        //TODO:Statusflags werden noch nirgends beeinflusst
+
+        private void ANDWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr) & W;
+            if ((0b1000_0000 & arg) == 128)
             {
-                return R[addr];
-            } else if ((R[3] & 0b10_0000) == 0b10_0000)
-            {
-                return R[addr + 128];
+                writeRegister(regaddr, erg);
             }
-            return 0;
+            else
+            {
+                W = erg;
+            }
         }
 
         private void ADDWF(int arg)
@@ -207,6 +213,75 @@ namespace PicSim
             } else
             {
                 W = erg;
+            }
+            if (erg == 0) SetZeroBit(1); else SetZeroBit(0);
+            
+        }
+
+        //TODO: Spzialfälle wie z.B. Statusregister implementieren
+        private void writeRegister(int addr, int value)
+        {
+            if ((R[3] & 0b10_0000) == 0)
+            {
+                R[addr] = value;
+            }
+            else if ((R[3] & 0b10_0000) == 0b10_0000)
+            {
+                R[addr + 128] = value;
+            }
+        }
+
+        private int readRegister(int addr)
+        {
+            if ((R[3] & 0b10_0000) == 0)
+            {
+                return R[addr];
+            }
+            else if ((R[3] & 0b10_0000) == 0b10_0000)
+            {
+                return R[addr + 128];
+            }
+            return 0;
+        }
+
+        private void SetZeroBit(int z)
+        {
+            if (z==1) {
+                R[3] |= 1 << 2;
+                R[0x83] |= 1 << 2;
+            } 
+            if (z == 0)
+            {
+                R[3] &= ~(1 << 2);
+                R[0x83] &= ~(1 << 2);
+            }
+        }
+
+        private void SetCarryBit(int z)
+        {
+            if (z == 1)
+            {
+                R[3] |= 1 << 0;
+                R[0x83] |= 1 << 0;
+            }
+            if (z == 0)
+            {
+                R[3] &= ~(1 << 0);
+                R[0x83] &= ~(1 << 0);
+            }
+        }
+
+        private void SetDCarryBit(int z)
+        {
+            if (z == 1)
+            {
+                R[3] |= 1 << 1;
+                R[0x83] |= 1 << 1;
+            }
+            if (z == 0)
+            {
+                R[3] &= ~(1 << 1);
+                R[0x83] &= ~(1 << 1);
             }
         }
     }
