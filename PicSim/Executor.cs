@@ -8,12 +8,18 @@ namespace PicSim
 {
     class Executor
     {
-        private int pc;
+        private int pc; //Programmcounter
+        private int W; //Working Register
+        private int[] R; //Register
+        private int Bank; //gibt an welche bank zur zeit genutzt wird
         //TODO: anderen notwendigen schlonz implementieren
 
         public Executor()
         {
             pc = 0;
+            W = 0;
+            R = new int[255];
+            Bank = 0;
         }
 
         public int GetPc()
@@ -26,6 +32,7 @@ namespace PicSim
             if ((arg & 0b1111_1111_0000_0000) == 0b0000_0111_0000_0000)
             {
                 Console.WriteLine("ADDWF");
+                ADDWF(arg);
             } else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0101_0000_0000)
             {
                 Console.WriteLine("ANDWF");
@@ -164,6 +171,43 @@ namespace PicSim
             }
             pc++; //TODO: dummypc++ später entfernen
 
+        }
+
+        //TODO: Spzialfälle wie z.B. Statusregister implementieren
+        private void writeRegister(int addr, int value)
+        {
+            if ((R[3] & 0b10_0000 ) == 0)
+            {
+                R[addr] = value;
+            } else if ((R[3] & 0b10_0000) == 0b10_0000)
+            {
+                R[addr + 128] = value;
+            }
+        }
+
+        private int readRegister(int addr)
+        {
+            if ((R[3] & 0b10_0000) == 0)
+            {
+                return R[addr];
+            } else if ((R[3] & 0b10_0000) == 0b10_0000)
+            {
+                return R[addr + 128];
+            }
+            return 0;
+        }
+
+        private void ADDWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr) + W;
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            } else
+            {
+                W = erg;
+            }
         }
     }
 }
