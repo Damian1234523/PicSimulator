@@ -66,34 +66,42 @@ namespace PicSim
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1010_0000_0000)
             {
                 Console.WriteLine("INCF");
+                INCF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1111_0000_0000)
             {
                 Console.WriteLine("INCFSZ");
+                INCFSZ(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0100_0000_0000)
             {
                 Console.WriteLine("IORWF");
+                IORWF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1000_0000_0000)
             {
                 Console.WriteLine("MOVF");
+                MOVF(arg);
             }
             else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0000_1000_0000)
             {
                 Console.WriteLine("MOVWF");
+                MOVWF(arg);
             }
             else if ((arg & 0b1111_1111_1001_1111) == 0b0000_0000_0000_0000)
             {
                 Console.WriteLine("NOP");
+                System.Threading.Thread.Sleep(10);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1101_0000_0000)
             {
                 Console.WriteLine("RLF");
+                RLF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1100_0000_0000)
             {
                 Console.WriteLine("RRF");
+                RRF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0010_0000_0000)
             {
@@ -192,7 +200,7 @@ namespace PicSim
             ZeroBit(0);
         }
 
-        //TODO:Statusflags werden noch nirgends beeinflusst
+        
 
         private void ANDWF(int arg)
         {
@@ -260,10 +268,138 @@ namespace PicSim
 
         private void DECFSZ(int arg)
         {
-
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg--;
+            
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+            if (erg == 0) pc++;
         }
-        //==============================================================
-        
+
+        private void INCF (int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg++;
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void INCFSZ (int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg--;
+
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+            if (erg == 0) pc++;
+        }
+
+        private void IORWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr) | W;
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+            
+        }
+
+        private void MOVF (int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void MOVWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            writeRegister(regaddr, W);
+        }
+
+        private void RLF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg = erg << 1;
+            int statusreg = readRegister(0x03);
+            statusreg = statusreg & 1;
+            if (statusreg == 1)
+            {
+                erg++;
+                SetCarryBit(0);
+            }
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void RRF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg = erg >> 1;
+            int statusreg = readRegister(0x03);
+            statusreg = statusreg & 1;
+            if (statusreg == 1)
+            {
+                erg += 128;
+                SetCarryBit(0);
+            }
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+
+        //=================================================================================================
+
         private void writeRegister(int addr, int value)
         {
             if ((R[3] & 0b10_0000) == 0)
