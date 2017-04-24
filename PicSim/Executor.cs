@@ -51,14 +51,17 @@ namespace PicSim
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1001_0000_0000)
             {
                 Console.WriteLine("COMF");
+                COMF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0011_0000_0000)
             {
                 Console.WriteLine("DECF");
+                DECF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1011_0000_0000)
             {
                 Console.WriteLine("DECFSZ");
+                DECFSZ(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1010_0000_0000)
             {
@@ -179,12 +182,14 @@ namespace PicSim
         private void CLRW()
         {
             W = 0;
+            ZeroBit(0);
         }
 
         private void CLRF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
             writeRegister(regaddr, 0);
+            ZeroBit(0);
         }
 
         //TODO:Statusflags werden noch nirgends beeinflusst
@@ -193,6 +198,8 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr) & W;
+            erg = Cut8(erg, false);
+            ZeroBit(erg);
             if ((0b1000_0000 & arg) == 128)
             {
                 writeRegister(regaddr, erg);
@@ -207,6 +214,9 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr) + W;
+            erg = Cut8(erg, true);
+            //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
+            ZeroBit(erg);
             if ((0b1000_0000 & arg) == 128)
             {
                 writeRegister(regaddr, erg);
@@ -214,11 +224,46 @@ namespace PicSim
             {
                 W = erg;
             }
-            ZeroBit(erg);
             
         }
 
-        //TODO: Spzialfälle wie z.B. Statusregister implementieren
+        private void COMF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = ~readRegister(regaddr);
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void DECF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            erg--;
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void DECFSZ(int arg)
+        {
+
+        }
+        //==============================================================
+        
         private void writeRegister(int addr, int value)
         {
             if ((R[3] & 0b10_0000) == 0)
@@ -246,11 +291,11 @@ namespace PicSim
 
         private void ZeroBit(int z)
         {
-            if (z != 0) {
+            if (z == 0) {
                 R[3] |= 1 << 2;
                 R[0x83] |= 1 << 2;
             } 
-            if (z == 0)
+            else
             {
                 R[3] &= ~(1 << 2);
                 R[0x83] &= ~(1 << 2);
