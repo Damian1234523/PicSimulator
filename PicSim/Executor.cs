@@ -11,7 +11,7 @@ namespace PicSim
         private int pc; //Programmcounter
         private int W; //Working Register
         private int[] R; //Register
-        private int Bank; //gibt an welche bank zur zeit genutzt wird
+        
         //TODO: anderen notwendigen schlonz implementieren
 
         public Executor()
@@ -19,7 +19,7 @@ namespace PicSim
             pc = 0;
             W = 0;
             R = new int[255];
-            Bank = 0;
+            
         }
 
         public int GetPc()
@@ -214,7 +214,7 @@ namespace PicSim
             {
                 W = erg;
             }
-            if (erg == 0) SetZeroBit(1); else SetZeroBit(0);
+            ZeroBit(erg);
             
         }
 
@@ -244,9 +244,9 @@ namespace PicSim
             return 0;
         }
 
-        private void SetZeroBit(int z)
+        private void ZeroBit(int z)
         {
-            if (z==1) {
+            if (z != 0) {
                 R[3] |= 1 << 2;
                 R[0x83] |= 1 << 2;
             } 
@@ -256,6 +256,8 @@ namespace PicSim
                 R[0x83] &= ~(1 << 2);
             }
         }
+
+        
 
         private void SetCarryBit(int z)
         {
@@ -283,6 +285,21 @@ namespace PicSim
                 R[3] &= ~(1 << 1);
                 R[0x83] &= ~(1 << 1);
             }
+        }
+
+        private int Cut8 (int z, bool setCarry)
+        {
+            if (z > 255)
+            {
+                if (setCarry) SetCarryBit(1);
+                return 0b1111_1111 & z;
+            }
+            return z;
+        } 
+
+        private void Cut4 (int z)
+        {
+            if (z > 15) SetDCarryBit(1);
         }
     }
 }
