@@ -11,6 +11,7 @@ namespace PicSim
         private int pc; //Programmcounter
         private int W; //Working Register
         private int[] R; //Register
+        private DropOutStack<int> Stack;
         
         //TODO: anderen notwendigen schlonz implementieren
 
@@ -19,7 +20,7 @@ namespace PicSim
             pc = 0;
             W = 0;
             R = new int[255];
-            
+            Stack = new DropOutStack<int>(8);
         }
 
         public int GetPc()
@@ -106,58 +107,71 @@ namespace PicSim
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0010_0000_0000)
             {
                 Console.WriteLine("SUBWF");
+                SUBWF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1110_0000_0000)
             {
                 Console.WriteLine("SWAPF");
+                SWAPF(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0110_0000_0000)
             {
                 Console.WriteLine("XORWF");
+                XORWF(arg);
             }
             else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0000_0000_0000)
             {
                 Console.WriteLine("BCF");
+                BCF(arg);
             }
             else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0100_0000_0000)
             {
                 Console.WriteLine("BSF");
+                BSF(arg);
             }
             else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1000_0000_0000)
             {
                 Console.WriteLine("BTFSC");
+                BTFSC(arg);
             }
             else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1100_0000_0000)
             {
                 Console.WriteLine("BTFSS");
+                BTFSS(arg);
             }
             else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1110_0000_0000)
             {
                 Console.WriteLine("ADDLW");
+                ADDLW(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1001_0000_0000)
             {
                 Console.WriteLine("ANDLW");
+                ANDLW(arg);
             }
             else if ((arg & 0b1111_1000_0000_0000) == 0b0010_0000_0000_0000)
             {
                 Console.WriteLine("CALL");
+                CALL(arg);
             }
             else if (arg == 0b0000_0000_0110_0100)
             {
-                Console.WriteLine("CLRWDT");
+                Console.WriteLine("CLRWDT");  //TODO: CLRWDT muss noch implementiert werden
             }
             else if ((arg & 0b1111_1000_0000_0000) == 0b0010_1000_0000_0000)
             {
                 Console.WriteLine("GOTO");
+                GOTO(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1000_0000_0000)
             {
                 Console.WriteLine("IORLW");
+                IORLW(arg);
             }
             else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0000_0000_0000)
             {
                 Console.WriteLine("MOVLW");
+                MOVLW(arg);
             }
             else if (arg == 0b1001)
             {
@@ -166,22 +180,26 @@ namespace PicSim
             else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0100_0000_0000)
             {
                 Console.WriteLine("RETLW");
+                RETLW(arg);
             }
             else if (arg == 0b1000)
             {
                 Console.WriteLine("RETURN");
+                RETURN();
             }
             else if (arg == 0b0110_0011)
             {
-                Console.WriteLine("SLEEP");
+                Console.WriteLine("SLEEP"); //:TODO SLEEP implementieren
             }
             else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1100_0000_0000)
             {
                 Console.WriteLine("SUBLW");
+                SUBLW(arg);
             }
             else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1010_0000_0000)
             {
                 Console.WriteLine("XORLW");
+                XORLW(arg);
             }
             pc++; //pc in register implementieren?
 
@@ -397,9 +415,176 @@ namespace PicSim
             }
         }
 
+        private void SUBWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr) - W;
+            erg = Cut8(erg, true);
+            //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void SWAPF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            int v1 = erg;
+            int v2 = v1;
+
+            v1 = v1 << 4;
+            v2 = v2 >> 4;
+
+            erg = v1 | v2;
+
+            erg = Cut8(erg, false);
+
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void XORWF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr) ^ W;
+            ZeroBit(erg);
+            if ((0b1000_0000 & arg) == 128)
+            {
+                writeRegister(regaddr, erg);
+            }
+            else
+            {
+                W = erg;
+            }
+        }
+
+        private void BCF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int bitPosition = 0b0011_1100_0000 & arg;
+            int erg = readRegister(regaddr);
+            bitPosition = bitPosition >> 5;
+            erg &= ~(1 << bitPosition);
+            writeRegister(regaddr, erg);
+        }
+
+        private void BSF(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int bitPosition = 0b0011_1100_0000 & arg;
+            int erg = readRegister(regaddr);
+            bitPosition = bitPosition >> 5;
+            erg |= 1 << bitPosition;
+            writeRegister(regaddr, erg);
+        }
+
+        private void BTFSC(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            int bitPosition = 0b0011_1100_0000 & arg;
+            bitPosition = bitPosition >> 5;
+            if(!IsBitSet(erg, bitPosition))
+            {
+                pc++;
+            }
+        }
+
+        private void BTFSS(int arg)
+        {
+            int regaddr = 0b0111_1111 & arg;
+            int erg = readRegister(regaddr);
+            int bitPosition = 0b0011_1100_0000 & arg;
+            bitPosition = bitPosition >> 5;
+            if (IsBitSet(erg, bitPosition))
+            {
+                pc++;
+            }
+        }
+
+        private void ADDLW(int arg)
+        {
+            int erg = 0b1111_1111 & arg;
+            W = Cut8(W + erg, true);
+            ZeroBit(W);
+        }
+
+        private void ANDLW(int arg)
+        {
+            int erg = 0b1111_1111 & arg;
+            W = W & erg;
+            ZeroBit(W);
+        }
+
+        private void CALL(int arg)
+        {
+            Stack.Push(pc + 1);
+            int addr = 0b0111_1111 & arg;
+            pc = addr - 1;
+        }
+
+        private void GOTO(int arg)
+        {
+            int addr = 0b0111_1111 & arg;
+            pc = addr - 1;
+        }
+
+        private void IORLW(int arg)
+        {
+            int erg = 0b1111_1111 & arg;
+            W = W | erg;
+            ZeroBit(W);
+        }
+
+        private void XORLW(int arg)
+        {
+            int erg = 0b1111_1111 & arg;
+            W = W ^ erg;
+            ZeroBit(W);
+        }
+
+        private void SUBLW(int arg)
+        {
+            int erg = 0b1111_1111 & arg;
+            W = Cut8(W - erg, true);
+            ZeroBit(W);
+        }
+
+        private void RETURN()
+        {
+            pc = Stack.Pop() - 1;
+        }
+
+        private void MOVLW(int arg)
+        {
+            W = 0b1111_1111 & arg;
+        }
+
+        private void RETLW(int arg)
+        {
+            pc = Stack.Pop() - 1;
+            W = 0b1111_1111 & arg;
+        }
 
         //=================================================================================================
 
+        bool IsBitSet(int b, int pos)
+        {
+            return (b & (1 << pos)) != 0;
+        }
         private void writeRegister(int addr, int value)
         {
             if ((R[3] & 0b10_0000) == 0)
@@ -481,6 +666,27 @@ namespace PicSim
         private void Cut4 (int z)
         {
             if (z > 15) SetDCarryBit(1);
+        }
+    }
+
+    class DropOutStack<T>
+    {
+        private T[] items;
+        private int top = 0;
+        public DropOutStack(int capacity)
+        {
+            items = new T[capacity];
+        }
+
+        public void Push(T item)
+        {
+            items[top] = item;
+            top = (top + 1) % items.Length;
+        }
+        public T Pop()
+        {
+            top = (items.Length + top - 1) % items.Length;
+            return items[top];
         }
     }
 }
