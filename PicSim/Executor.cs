@@ -12,6 +12,7 @@ namespace PicSim
         private int W; //Working Register
         private int[] R; //Register
         private DropOutStack<int> Stack;
+        private int intArg;
         
         //TODO: anderen notwendigen schlonz implementieren
 
@@ -23,6 +24,10 @@ namespace PicSim
             Stack = new DropOutStack<int>(8);
         }
 
+        public void SetIntArg(int i)
+        {
+            intArg = i;
+        }
         public int GetPc()
         {
             return pc;
@@ -37,19 +42,25 @@ namespace PicSim
                 if((INTCON & 0b0010_0100) == 0b0010_0100)
                 {
                     //Timer interrupt
+                    Stack.Push(pc);
                     pc = 4;
                     INTCON &= ~(1 << 7);
                     writeRegister(0x0b, INTCON);
+                    arg = intArg;
                 } else if ((INTCON & 0b0001_0010) == 0b0001_0010)
                 {
+                    Stack.Push(pc);
                     pc = 4;
                     INTCON &= ~(1 << 7);
                     writeRegister(0x0b, INTCON);
+                    arg = intArg;
                 } else if ((INTCON & 0b0000_1001) == 0b0000_1001)
                 {
+                    Stack.Push(pc);
                     pc = 4;
                     INTCON &= ~(1 << 7);
                     writeRegister(0x0b, INTCON);
+                    arg = intArg;
                 }
                 
             }
@@ -603,6 +614,10 @@ namespace PicSim
             W = 0b1111_1111 & arg;
         }
 
+        private void RETFIE()
+        {
+            pc = Stack.Pop() - 1;
+        }
         //=================================================================================================
 
         bool IsBitSet(int b, int pos)
