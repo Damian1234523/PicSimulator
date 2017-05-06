@@ -32,7 +32,7 @@ namespace PicSim
         {
             return pc;
         }
-
+        
         public void Execute (int arg)
         {
             // Interrupt prüfung--------------------------

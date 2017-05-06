@@ -16,10 +16,13 @@ namespace PicSim
         public Form1()
         {
             InitializeComponent();
+            raGridView1.Rows.Add();
+            rbGridView1.Rows.Add();
         }
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
+        
 
         
 
@@ -59,6 +62,7 @@ namespace PicSim
         {
             //executor.Execute(0x0733);
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
+            
         }
 
         private void btRun_Click(object sender, EventArgs e)
