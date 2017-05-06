@@ -38,16 +38,6 @@
             this.completeListBox1 = new System.Windows.Forms.ListBox();
             this.btRun = new System.Windows.Forms.Button();
             this.btOneStep = new System.Windows.Forms.Button();
-            this.lbRa = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.lbRe = new System.Windows.Forms.Label();
-            this.lbRd = new System.Windows.Forms.Label();
-            this.lbRc = new System.Windows.Forms.Label();
-            this.lbRb = new System.Windows.Forms.Label();
             this.lbSource = new System.Windows.Forms.Label();
             this.lbArg1 = new System.Windows.Forms.Label();
             this.lbArg2 = new System.Windows.Forms.Label();
@@ -76,7 +66,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -91,7 +81,7 @@
             // dokuToolStripMenuItem
             // 
             this.dokuToolStripMenuItem.Name = "dokuToolStripMenuItem";
-            this.dokuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dokuToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.dokuToolStripMenuItem.Text = "Doku";
             this.dokuToolStripMenuItem.Click += new System.EventHandler(this.dokuToolStripMenuItem_Click);
             // 
@@ -139,86 +129,6 @@
             this.btOneStep.UseVisualStyleBackColor = true;
             this.btOneStep.Click += new System.EventHandler(this.btOneStep_Click);
             // 
-            // lbRa
-            // 
-            this.lbRa.AutoSize = true;
-            this.lbRa.Location = new System.Drawing.Point(1059, 68);
-            this.lbRa.Name = "lbRa";
-            this.lbRa.Size = new System.Drawing.Size(22, 13);
-            this.lbRa.TabIndex = 6;
-            this.lbRa.Text = "RA";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1089, 65);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(1089, 91);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(1089, 117);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 9;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(1089, 143);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 10;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(1089, 169);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 11;
-            // 
-            // lbRe
-            // 
-            this.lbRe.AutoSize = true;
-            this.lbRe.Location = new System.Drawing.Point(1059, 169);
-            this.lbRe.Name = "lbRe";
-            this.lbRe.Size = new System.Drawing.Size(22, 13);
-            this.lbRe.TabIndex = 12;
-            this.lbRe.Text = "RE";
-            // 
-            // lbRd
-            // 
-            this.lbRd.AutoSize = true;
-            this.lbRd.Location = new System.Drawing.Point(1059, 143);
-            this.lbRd.Name = "lbRd";
-            this.lbRd.Size = new System.Drawing.Size(23, 13);
-            this.lbRd.TabIndex = 13;
-            this.lbRd.Text = "RD";
-            // 
-            // lbRc
-            // 
-            this.lbRc.AutoSize = true;
-            this.lbRc.Location = new System.Drawing.Point(1059, 117);
-            this.lbRc.Name = "lbRc";
-            this.lbRc.Size = new System.Drawing.Size(22, 13);
-            this.lbRc.TabIndex = 14;
-            this.lbRc.Text = "RC";
-            // 
-            // lbRb
-            // 
-            this.lbRb.AutoSize = true;
-            this.lbRb.Location = new System.Drawing.Point(1059, 91);
-            this.lbRb.Name = "lbRb";
-            this.lbRb.Size = new System.Drawing.Size(22, 13);
-            this.lbRb.TabIndex = 15;
-            this.lbRb.Text = "RB";
-            // 
             // lbSource
             // 
             this.lbSource.AutoSize = true;
@@ -254,16 +164,6 @@
             this.Controls.Add(this.lbArg2);
             this.Controls.Add(this.lbArg1);
             this.Controls.Add(this.lbSource);
-            this.Controls.Add(this.lbRb);
-            this.Controls.Add(this.lbRc);
-            this.Controls.Add(this.lbRd);
-            this.Controls.Add(this.lbRe);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.lbRa);
             this.Controls.Add(this.btOneStep);
             this.Controls.Add(this.btRun);
             this.Controls.Add(this.completeListBox1);
@@ -291,16 +191,6 @@
         private System.Windows.Forms.ListBox completeListBox1;
         private System.Windows.Forms.Button btRun;
         private System.Windows.Forms.Button btOneStep;
-        private System.Windows.Forms.Label lbRa;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label lbRe;
-        private System.Windows.Forms.Label lbRd;
-        private System.Windows.Forms.Label lbRc;
-        private System.Windows.Forms.Label lbRb;
         private System.Windows.Forms.Label lbSource;
         private System.Windows.Forms.Label lbArg1;
         private System.Windows.Forms.Label lbArg2;
