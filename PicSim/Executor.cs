@@ -587,13 +587,27 @@ namespace PicSim
         }
         private void writeRegister(int addr, int value)
         {
-            if ((R[3] & 0b10_0000) == 0)
+            if ((addr >= 0x50 & addr <= 0x7f) | (addr >= 0xd0 & addr <= 0xff))
+            {
+                //Hier wird nichts gemacht
+            } else if (addr >= 0x0c & addr <= 0x4f)
             {
                 R[addr] = value;
-            }
-            else if ((R[3] & 0b10_0000) == 0b10_0000)
-            {
                 R[addr + 128] = value;
+            } else if (value == 0x0b | value == 0x0a | value == 0x04 | value == 0x03 | value == 0x02)
+            {
+                R[addr] = value;
+                R[addr + 128] = value;
+            } else
+            {
+                if ((R[3] & 0b10_0000) == 0)
+                {
+                    R[addr] = value;
+                }
+                else if ((R[3] & 0b10_0000) == 0b10_0000)
+                {
+                    R[addr + 128] = value;
+                }
             }
         }
 
