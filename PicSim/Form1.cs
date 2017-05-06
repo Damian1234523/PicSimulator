@@ -21,6 +21,8 @@ namespace PicSim
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
 
+        
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
 ;
@@ -43,6 +45,7 @@ namespace PicSim
                 sourceManager.ResetSource();
                 sourceManager.FillSource(rows);
                 sr.Close();
+                executor.SetIntArg(sourceManager.GetSingleArg1(4));
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
             }
         }
