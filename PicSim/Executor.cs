@@ -30,6 +30,30 @@ namespace PicSim
 
         public void Execute (int arg)
         {
+            // Interrupt prüfung--------------------------
+            int INTCON = readRegister(0x0b);
+            if ((INTCON & 0b1000_0000) == 0b1000_0000)//Global interrupt bit
+            {
+                if((INTCON & 0b0010_0100) == 0b0010_0100)
+                {
+                    //Timer interrupt
+                    pc = 4;
+                    INTCON &= ~(1 << 7);
+                    writeRegister(0x0b, INTCON);
+                } else if ((INTCON & 0b0001_0010) == 0b0001_0010)
+                {
+                    pc = 4;
+                    INTCON &= ~(1 << 7);
+                    writeRegister(0x0b, INTCON);
+                } else if ((INTCON & 0b0000_1001) == 0b0000_1001)
+                {
+                    pc = 4;
+                    INTCON &= ~(1 << 7);
+                    writeRegister(0x0b, INTCON);
+                }
+                
+            }
+            // Ende Interrupt=============================
             if ((arg & 0b1111_1111_0000_0000) == 0b0000_0111_0000_0000)
             {
                 Console.WriteLine("ADDWF");
