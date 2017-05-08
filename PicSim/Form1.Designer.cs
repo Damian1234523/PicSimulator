@@ -201,7 +201,7 @@
             this.C});
             this.statusGridView.Location = new System.Drawing.Point(871, 68);
             this.statusGridView.Name = "statusGridView";
-            this.statusGridView.Size = new System.Drawing.Size(304, 46);
+            this.statusGridView.Size = new System.Drawing.Size(330, 77);
             this.statusGridView.TabIndex = 19;
             // 
             // IRP
@@ -265,9 +265,9 @@
             this.A2,
             this.A1,
             this.A0});
-            this.raGridView1.Location = new System.Drawing.Point(871, 120);
+            this.raGridView1.Location = new System.Drawing.Point(871, 151);
             this.raGridView1.Name = "raGridView1";
-            this.raGridView1.Size = new System.Drawing.Size(252, 67);
+            this.raGridView1.Size = new System.Drawing.Size(252, 94);
             this.raGridView1.TabIndex = 20;
             // 
             // A7
@@ -331,9 +331,9 @@
             this.dataGridViewButtonColumn6,
             this.dataGridViewButtonColumn7,
             this.dataGridViewButtonColumn8});
-            this.rbGridView1.Location = new System.Drawing.Point(871, 193);
+            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
             this.rbGridView1.Name = "rbGridView1";
-            this.rbGridView1.Size = new System.Drawing.Size(252, 67);
+            this.rbGridView1.Size = new System.Drawing.Size(252, 103);
             this.rbGridView1.TabIndex = 21;
             // 
             // dataGridViewButtonColumn1
