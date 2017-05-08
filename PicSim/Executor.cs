@@ -33,6 +33,31 @@ namespace PicSim
             return pc;
         }
         
+        public int GetStatus()
+        {
+            return R[0x03];
+        }
+
+        public int GetRegisterA()
+        {
+            return R[0x05];
+        }
+
+        public int GetRegisterB()
+        {
+            return R[0x06];
+        }
+
+        public int GetTrisA()
+        {
+            return R[0x85];
+        }
+
+        public int GetTrisB()
+        {
+            return R[0x86];
+        }
+
         public void Execute (int arg)
         {
             // Interrupt prüfung--------------------------
