@@ -263,6 +263,7 @@ namespace PicSim
             }
             pc++; //pc in register implementieren?
             Console.WriteLine(W);
+            Console.WriteLine(W.ToString("X2"));
         }
 
         private void CLRW()
@@ -318,6 +319,8 @@ namespace PicSim
             int regaddr = 0b0111_1111 & arg;
             int erg = ~readRegister(regaddr);
             ZeroBit(erg);
+            erg = Cut8(erg, false);
+            erg = Math.Abs(erg);
             if ((0b1000_0000 & arg) == 128)
             {
                 writeRegister(regaddr, erg);
@@ -334,6 +337,7 @@ namespace PicSim
             int erg = readRegister(regaddr);
             erg--;
             ZeroBit(erg);
+            
             if ((0b1000_0000 & arg) == 128)
             {
                 writeRegister(regaddr, erg);
@@ -480,6 +484,8 @@ namespace PicSim
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr) - W;
             erg = Cut8(erg, true);
+            if (erg < 0) SetCarryBit(1);
+            erg = Math.Abs(erg);
             //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
             ZeroBit(erg);
             if ((0b1000_0000 & arg) == 128)
@@ -620,7 +626,7 @@ namespace PicSim
         {
             int erg = 0b1111_1111 & arg;
             W = Cut8(W - erg, true);
-            if (W <= 0) SetCarryBit(1);
+            if (W < 0) SetCarryBit(1);
             W = Math.Abs(W);
             ZeroBit(W);
         }
@@ -735,10 +741,10 @@ namespace PicSim
 
         private int Cut8 (int z, bool setCarry)
         {
-            if (z > 255)
+            if (z > 255 | z < 0)
             {
                 if (setCarry) SetCarryBit(1);
-                return 0b1111_1111 & z;
+                return Math.Abs(0b1111_1111 & z);
             }
             return z;
         } 
