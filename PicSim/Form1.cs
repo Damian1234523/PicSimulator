@@ -16,10 +16,13 @@ namespace PicSim
         public Form1()
         {
             InitializeComponent();
+            raGridView1.Rows.Add();
+            rbGridView1.Rows.Add();
         }
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
+        
 
         
 
@@ -59,6 +62,8 @@ namespace PicSim
         {
             //executor.Execute(0x0733);
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
+            printInfo();
+            
         }
 
         private void btRun_Click(object sender, EventArgs e)
@@ -80,5 +85,56 @@ namespace PicSim
                 completeListBox1.Items.Add(line);
             }
         }
+
+        void printInfo()
+        {
+            int s = executor.GetStatus();
+            //statusGridView[0, 0].Value = "test";
+            System.Collections.BitArray b = new System.Collections.BitArray(new int[] { s });
+            
+            for (int i = 0; i <= 7; i++)
+            {
+                if (b[i] == false) statusGridView[i, 0].Value = 0;
+                if (b[i] == true) statusGridView[i, 0].Value = 1;
+            }
+
+            s = executor.GetRegisterA();
+            b = new System.Collections.BitArray(new int[] { s });
+
+            for (int i = 0; i <= 7; i++)
+            {
+                if (b[i] == false) raGridView1[i, 0].Value = 0;
+                if (b[i] == true) raGridView1[i, 0].Value = 1;
+            }
+
+            s = executor.GetTrisA();
+            b = new System.Collections.BitArray(new int[] { s });
+
+            for (int i = 0; i <= 7; i++)
+            {
+                if (b[i] == false) raGridView1[i, 1].Value = 0;
+                if (b[i] == true) raGridView1[i, 1].Value = 1;
+            }
+
+            s = executor.GetRegisterB();
+            b = new System.Collections.BitArray(new int[] { s });
+
+            for (int i = 0; i <= 7; i++)
+            {
+                if (b[i] == false) rbGridView1[i, 0].Value = 0;
+                if (b[i] == true) rbGridView1[i, 0].Value = 1;
+            }
+
+            s = executor.GetTrisB();
+            b = new System.Collections.BitArray(new int[] { s });
+
+            for (int i = 0; i <= 7; i++)
+            {
+                if (b[i] == false) rbGridView1[i, 1].Value = 0;
+                if (b[i] == true) rbGridView1[i, 1].Value = 1;
+            }
+        }
+
+       
     }
 }
