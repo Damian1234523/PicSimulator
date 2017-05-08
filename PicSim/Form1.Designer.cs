@@ -42,32 +42,32 @@
             this.lbArg1 = new System.Windows.Forms.Label();
             this.lbArg2 = new System.Windows.Forms.Label();
             this.statusGridView = new System.Windows.Forms.DataGridView();
-            this.IRP = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.RP1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.RP0 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.TOneg = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.PDneg = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Z = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DC = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.C = new System.Windows.Forms.DataGridViewButtonColumn();
             this.raGridView1 = new System.Windows.Forms.DataGridView();
-            this.A7 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A6 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A5 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A4 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A3 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.A0 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rbGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn5 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn6 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn7 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.C = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DC = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Z = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PDneg = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.TOneg = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.RP0 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.RP1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.IRP = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A0 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A3 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A4 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A5 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A6 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.A7 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn8 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn7 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn6 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn5 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -191,60 +191,54 @@
             this.statusGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.statusGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.statusGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IRP,
-            this.RP1,
-            this.RP0,
-            this.TOneg,
-            this.PDneg,
-            this.Z,
+            this.C,
             this.DC,
-            this.C});
+            this.Z,
+            this.PDneg,
+            this.TOneg,
+            this.RP0,
+            this.RP1,
+            this.IRP});
             this.statusGridView.Location = new System.Drawing.Point(871, 68);
             this.statusGridView.Name = "statusGridView";
             this.statusGridView.Size = new System.Drawing.Size(330, 77);
             this.statusGridView.TabIndex = 19;
             // 
-            // IRP
+            // raGridView1
             // 
-            this.IRP.HeaderText = "IRP";
-            this.IRP.Name = "IRP";
-            this.IRP.Width = 31;
+            this.raGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.raGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.raGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.A0,
+            this.A1,
+            this.A2,
+            this.A3,
+            this.A4,
+            this.A5,
+            this.A6,
+            this.A7});
+            this.raGridView1.Location = new System.Drawing.Point(871, 151);
+            this.raGridView1.Name = "raGridView1";
+            this.raGridView1.Size = new System.Drawing.Size(252, 94);
+            this.raGridView1.TabIndex = 20;
             // 
-            // RP1
+            // rbGridView1
             // 
-            this.RP1.HeaderText = "RP1";
-            this.RP1.Name = "RP1";
-            this.RP1.Width = 34;
-            // 
-            // RP0
-            // 
-            this.RP0.HeaderText = "RP0";
-            this.RP0.Name = "RP0";
-            this.RP0.Width = 34;
-            // 
-            // TOneg
-            // 
-            this.TOneg.HeaderText = "TOneg";
-            this.TOneg.Name = "TOneg";
-            this.TOneg.Width = 46;
-            // 
-            // PDneg
-            // 
-            this.PDneg.HeaderText = "PDneg";
-            this.PDneg.Name = "PDneg";
-            this.PDneg.Width = 46;
-            // 
-            // Z
-            // 
-            this.Z.HeaderText = "Z";
-            this.Z.Name = "Z";
-            this.Z.Width = 21;
-            // 
-            // DC
-            // 
-            this.DC.HeaderText = "DC";
-            this.DC.Name = "DC";
-            this.DC.Width = 28;
+            this.rbGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.rbGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.rbGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewButtonColumn8,
+            this.dataGridViewButtonColumn7,
+            this.dataGridViewButtonColumn6,
+            this.dataGridViewButtonColumn5,
+            this.dataGridViewButtonColumn4,
+            this.dataGridViewButtonColumn3,
+            this.dataGridViewButtonColumn2,
+            this.dataGridViewButtonColumn1});
+            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
+            this.rbGridView1.Name = "rbGridView1";
+            this.rbGridView1.Size = new System.Drawing.Size(252, 103);
+            this.rbGridView1.TabIndex = 21;
             // 
             // C
             // 
@@ -252,65 +246,47 @@
             this.C.Name = "C";
             this.C.Width = 21;
             // 
-            // raGridView1
+            // DC
             // 
-            this.raGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.raGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.raGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.A7,
-            this.A6,
-            this.A5,
-            this.A4,
-            this.A3,
-            this.A2,
-            this.A1,
-            this.A0});
-            this.raGridView1.Location = new System.Drawing.Point(871, 151);
-            this.raGridView1.Name = "raGridView1";
-            this.raGridView1.Size = new System.Drawing.Size(252, 94);
-            this.raGridView1.TabIndex = 20;
+            this.DC.HeaderText = "DC";
+            this.DC.Name = "DC";
+            this.DC.Width = 28;
             // 
-            // A7
+            // Z
             // 
-            this.A7.HeaderText = "A7";
-            this.A7.Name = "A7";
-            this.A7.Width = 26;
+            this.Z.HeaderText = "Z";
+            this.Z.Name = "Z";
+            this.Z.Width = 21;
             // 
-            // A6
+            // PDneg
             // 
-            this.A6.HeaderText = "A6";
-            this.A6.Name = "A6";
-            this.A6.Width = 26;
+            this.PDneg.HeaderText = "PDneg";
+            this.PDneg.Name = "PDneg";
+            this.PDneg.Width = 46;
             // 
-            // A5
+            // TOneg
             // 
-            this.A5.HeaderText = "A5";
-            this.A5.Name = "A5";
-            this.A5.Width = 26;
+            this.TOneg.HeaderText = "TOneg";
+            this.TOneg.Name = "TOneg";
+            this.TOneg.Width = 46;
             // 
-            // A4
+            // RP0
             // 
-            this.A4.HeaderText = "A4";
-            this.A4.Name = "A4";
-            this.A4.Width = 26;
+            this.RP0.HeaderText = "RP0";
+            this.RP0.Name = "RP0";
+            this.RP0.Width = 34;
             // 
-            // A3
+            // RP1
             // 
-            this.A3.HeaderText = "A3";
-            this.A3.Name = "A3";
-            this.A3.Width = 26;
+            this.RP1.HeaderText = "RP1";
+            this.RP1.Name = "RP1";
+            this.RP1.Width = 34;
             // 
-            // A2
+            // IRP
             // 
-            this.A2.HeaderText = "A2";
-            this.A2.Name = "A2";
-            this.A2.Width = 26;
-            // 
-            // A1
-            // 
-            this.A1.HeaderText = "A1";
-            this.A1.Name = "A1";
-            this.A1.Width = 26;
+            this.IRP.HeaderText = "IRP";
+            this.IRP.Name = "IRP";
+            this.IRP.Width = 31;
             // 
             // A0
             // 
@@ -318,59 +294,53 @@
             this.A0.Name = "A0";
             this.A0.Width = 26;
             // 
-            // rbGridView1
+            // A1
             // 
-            this.rbGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.rbGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rbGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewButtonColumn1,
-            this.dataGridViewButtonColumn2,
-            this.dataGridViewButtonColumn3,
-            this.dataGridViewButtonColumn4,
-            this.dataGridViewButtonColumn5,
-            this.dataGridViewButtonColumn6,
-            this.dataGridViewButtonColumn7,
-            this.dataGridViewButtonColumn8});
-            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
-            this.rbGridView1.Name = "rbGridView1";
-            this.rbGridView1.Size = new System.Drawing.Size(252, 103);
-            this.rbGridView1.TabIndex = 21;
+            this.A1.HeaderText = "A1";
+            this.A1.Name = "A1";
+            this.A1.Width = 26;
             // 
-            // dataGridViewButtonColumn1
+            // A2
             // 
-            this.dataGridViewButtonColumn1.HeaderText = "B7";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.Width = 26;
+            this.A2.HeaderText = "A2";
+            this.A2.Name = "A2";
+            this.A2.Width = 26;
             // 
-            // dataGridViewButtonColumn2
+            // A3
             // 
-            this.dataGridViewButtonColumn2.HeaderText = "B6";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.Width = 26;
+            this.A3.HeaderText = "A3";
+            this.A3.Name = "A3";
+            this.A3.Width = 26;
             // 
-            // dataGridViewButtonColumn3
+            // A4
             // 
-            this.dataGridViewButtonColumn3.HeaderText = "B5";
-            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
-            this.dataGridViewButtonColumn3.Width = 26;
+            this.A4.HeaderText = "A4";
+            this.A4.Name = "A4";
+            this.A4.Width = 26;
             // 
-            // dataGridViewButtonColumn4
+            // A5
             // 
-            this.dataGridViewButtonColumn4.HeaderText = "B4";
-            this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
-            this.dataGridViewButtonColumn4.Width = 26;
+            this.A5.HeaderText = "A5";
+            this.A5.Name = "A5";
+            this.A5.Width = 26;
             // 
-            // dataGridViewButtonColumn5
+            // A6
             // 
-            this.dataGridViewButtonColumn5.HeaderText = "B3";
-            this.dataGridViewButtonColumn5.Name = "dataGridViewButtonColumn5";
-            this.dataGridViewButtonColumn5.Width = 26;
+            this.A6.HeaderText = "A6";
+            this.A6.Name = "A6";
+            this.A6.Width = 26;
             // 
-            // dataGridViewButtonColumn6
+            // A7
             // 
-            this.dataGridViewButtonColumn6.HeaderText = "B2";
-            this.dataGridViewButtonColumn6.Name = "dataGridViewButtonColumn6";
-            this.dataGridViewButtonColumn6.Width = 26;
+            this.A7.HeaderText = "A7";
+            this.A7.Name = "A7";
+            this.A7.Width = 26;
+            // 
+            // dataGridViewButtonColumn8
+            // 
+            this.dataGridViewButtonColumn8.HeaderText = "B0";
+            this.dataGridViewButtonColumn8.Name = "dataGridViewButtonColumn8";
+            this.dataGridViewButtonColumn8.Width = 26;
             // 
             // dataGridViewButtonColumn7
             // 
@@ -378,11 +348,41 @@
             this.dataGridViewButtonColumn7.Name = "dataGridViewButtonColumn7";
             this.dataGridViewButtonColumn7.Width = 26;
             // 
-            // dataGridViewButtonColumn8
+            // dataGridViewButtonColumn6
             // 
-            this.dataGridViewButtonColumn8.HeaderText = "B0";
-            this.dataGridViewButtonColumn8.Name = "dataGridViewButtonColumn8";
-            this.dataGridViewButtonColumn8.Width = 26;
+            this.dataGridViewButtonColumn6.HeaderText = "B2";
+            this.dataGridViewButtonColumn6.Name = "dataGridViewButtonColumn6";
+            this.dataGridViewButtonColumn6.Width = 26;
+            // 
+            // dataGridViewButtonColumn5
+            // 
+            this.dataGridViewButtonColumn5.HeaderText = "B3";
+            this.dataGridViewButtonColumn5.Name = "dataGridViewButtonColumn5";
+            this.dataGridViewButtonColumn5.Width = 26;
+            // 
+            // dataGridViewButtonColumn4
+            // 
+            this.dataGridViewButtonColumn4.HeaderText = "B4";
+            this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
+            this.dataGridViewButtonColumn4.Width = 26;
+            // 
+            // dataGridViewButtonColumn3
+            // 
+            this.dataGridViewButtonColumn3.HeaderText = "B5";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.Width = 26;
+            // 
+            // dataGridViewButtonColumn2
+            // 
+            this.dataGridViewButtonColumn2.HeaderText = "B6";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.Width = 26;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "B7";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Width = 26;
             // 
             // Form1
             // 
@@ -428,33 +428,33 @@
         private System.Windows.Forms.Label lbSource;
         private System.Windows.Forms.Label lbArg1;
         private System.Windows.Forms.Label lbArg2;
-        private System.Windows.Forms.DataGridViewButtonColumn IRP;
-        private System.Windows.Forms.DataGridViewButtonColumn RP1;
-        private System.Windows.Forms.DataGridViewButtonColumn RP0;
-        private System.Windows.Forms.DataGridViewButtonColumn TOneg;
-        private System.Windows.Forms.DataGridViewButtonColumn PDneg;
-        private System.Windows.Forms.DataGridViewButtonColumn Z;
-        private System.Windows.Forms.DataGridViewButtonColumn DC;
-        private System.Windows.Forms.DataGridViewButtonColumn C;
-        private System.Windows.Forms.DataGridViewButtonColumn A7;
-        private System.Windows.Forms.DataGridViewButtonColumn A6;
-        private System.Windows.Forms.DataGridViewButtonColumn A5;
-        private System.Windows.Forms.DataGridViewButtonColumn A4;
-        private System.Windows.Forms.DataGridViewButtonColumn A3;
-        private System.Windows.Forms.DataGridViewButtonColumn A2;
-        private System.Windows.Forms.DataGridViewButtonColumn A1;
-        private System.Windows.Forms.DataGridViewButtonColumn A0;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn5;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn6;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn7;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn8;
         public System.Windows.Forms.DataGridView statusGridView;
         public System.Windows.Forms.DataGridView raGridView1;
         public System.Windows.Forms.DataGridView rbGridView1;
+        private System.Windows.Forms.DataGridViewButtonColumn C;
+        private System.Windows.Forms.DataGridViewButtonColumn DC;
+        private System.Windows.Forms.DataGridViewButtonColumn Z;
+        private System.Windows.Forms.DataGridViewButtonColumn PDneg;
+        private System.Windows.Forms.DataGridViewButtonColumn TOneg;
+        private System.Windows.Forms.DataGridViewButtonColumn RP0;
+        private System.Windows.Forms.DataGridViewButtonColumn RP1;
+        private System.Windows.Forms.DataGridViewButtonColumn IRP;
+        private System.Windows.Forms.DataGridViewButtonColumn A0;
+        private System.Windows.Forms.DataGridViewButtonColumn A1;
+        private System.Windows.Forms.DataGridViewButtonColumn A2;
+        private System.Windows.Forms.DataGridViewButtonColumn A3;
+        private System.Windows.Forms.DataGridViewButtonColumn A4;
+        private System.Windows.Forms.DataGridViewButtonColumn A5;
+        private System.Windows.Forms.DataGridViewButtonColumn A6;
+        private System.Windows.Forms.DataGridViewButtonColumn A7;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn8;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn7;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn6;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn5;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
     }
 }
 

@@ -262,7 +262,7 @@ namespace PicSim
                 XORLW(arg);
             }
             pc++; //pc in register implementieren?
-
+            Console.WriteLine(W);
         }
 
         private void CLRW()
@@ -620,6 +620,8 @@ namespace PicSim
         {
             int erg = 0b1111_1111 & arg;
             W = Cut8(W - erg, true);
+            if (W <= 0) SetCarryBit(1);
+            W = Math.Abs(W);
             ZeroBit(W);
         }
 
