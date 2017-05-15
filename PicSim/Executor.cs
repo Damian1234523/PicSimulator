@@ -60,206 +60,217 @@ namespace PicSim
 
         public void Execute (int arg)
         {
-            // Interrupt prüfung--------------------------
-            int INTCON = readRegister(0x0b);
-            if ((INTCON & 0b1000_0000) == 0b1000_0000)//Global interrupt bit
+            try
             {
-                if((INTCON & 0b0010_0100) == 0b0010_0100)
+                // Interrupt prüfung--------------------------
+                int INTCON = readRegister(0x0b);
+                if ((INTCON & 0b1000_0000) == 0b1000_0000)//Global interrupt bit
                 {
-                    //Timer interrupt
-                    Stack.Push(pc);
-                    pc = 4;
-                    INTCON &= ~(1 << 7);
-                    writeRegister(0x0b, INTCON);
-                    arg = intArg;
-                } else if ((INTCON & 0b0001_0010) == 0b0001_0010)
-                {
-                    Stack.Push(pc);
-                    pc = 4;
-                    INTCON &= ~(1 << 7);
-                    writeRegister(0x0b, INTCON);
-                    arg = intArg;
-                } else if ((INTCON & 0b0000_1001) == 0b0000_1001)
-                {
-                    Stack.Push(pc);
-                    pc = 4;
-                    INTCON &= ~(1 << 7);
-                    writeRegister(0x0b, INTCON);
-                    arg = intArg;
+                    if ((INTCON & 0b0010_0100) == 0b0010_0100)
+                    {
+                        //Timer interrupt
+                        Stack.Push(pc);
+                        pc = 4;
+                        INTCON &= ~(1 << 7);
+                        writeRegister(0x0b, INTCON);
+                        arg = intArg;
+                    }
+                    else if ((INTCON & 0b0001_0010) == 0b0001_0010)
+                    {
+                        Stack.Push(pc);
+                        pc = 4;
+                        INTCON &= ~(1 << 7);
+                        writeRegister(0x0b, INTCON);
+                        arg = intArg;
+                    }
+                    else if ((INTCON & 0b0000_1001) == 0b0000_1001)
+                    {
+                        Stack.Push(pc);
+                        pc = 4;
+                        INTCON &= ~(1 << 7);
+                        writeRegister(0x0b, INTCON);
+                        arg = intArg;
+                    }
+
                 }
-                
-            }
-            // Ende Interrupt=============================
-            if ((arg & 0b1111_1111_0000_0000) == 0b0000_0111_0000_0000)
+                // Ende Interrupt=============================
+                if ((arg & 0b1111_1111_0000_0000) == 0b0000_0111_0000_0000)
+                {
+                    Console.WriteLine("ADDWF");
+                    ADDWF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0101_0000_0000)
+                {
+                    Console.WriteLine("ANDWF");
+                    ANDWF(arg);
+                }
+                else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_1000_0000)
+                {
+                    Console.WriteLine("CLRF");
+                    CLRF(arg);
+                }
+                else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_0000_0000)
+                {
+                    Console.WriteLine("CLRW");
+                    CLRW();
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1001_0000_0000)
+                {
+                    Console.WriteLine("COMF");
+                    COMF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0011_0000_0000)
+                {
+                    Console.WriteLine("DECF");
+                    DECF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1011_0000_0000)
+                {
+                    Console.WriteLine("DECFSZ");
+                    DECFSZ(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1010_0000_0000)
+                {
+                    Console.WriteLine("INCF");
+                    INCF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1111_0000_0000)
+                {
+                    Console.WriteLine("INCFSZ");
+                    INCFSZ(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0100_0000_0000)
+                {
+                    Console.WriteLine("IORWF");
+                    IORWF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1000_0000_0000)
+                {
+                    Console.WriteLine("MOVF");
+                    MOVF(arg);
+                }
+                else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0000_1000_0000)
+                {
+                    Console.WriteLine("MOVWF");
+                    MOVWF(arg);
+                }
+                else if ((arg & 0b1111_1111_1001_1111) == 0b0000_0000_0000_0000)
+                {
+                    Console.WriteLine("NOP");
+                    System.Threading.Thread.Sleep(10);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1101_0000_0000)
+                {
+                    Console.WriteLine("RLF");
+                    RLF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1100_0000_0000)
+                {
+                    Console.WriteLine("RRF");
+                    RRF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0010_0000_0000)
+                {
+                    Console.WriteLine("SUBWF");
+                    SUBWF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1110_0000_0000)
+                {
+                    Console.WriteLine("SWAPF");
+                    SWAPF(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0110_0000_0000)
+                {
+                    Console.WriteLine("XORWF");
+                    XORWF(arg);
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0000_0000_0000)
+                {
+                    Console.WriteLine("BCF");
+                    BCF(arg);
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0100_0000_0000)
+                {
+                    Console.WriteLine("BSF");
+                    BSF(arg);
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1000_0000_0000)
+                {
+                    Console.WriteLine("BTFSC");
+                    BTFSC(arg);
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1100_0000_0000)
+                {
+                    Console.WriteLine("BTFSS");
+                    BTFSS(arg);
+                }
+                else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1110_0000_0000)
+                {
+                    Console.WriteLine("ADDLW");
+                    ADDLW(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1001_0000_0000)
+                {
+                    Console.WriteLine("ANDLW");
+                    ANDLW(arg);
+                }
+                else if ((arg & 0b1111_1000_0000_0000) == 0b0010_0000_0000_0000)
+                {
+                    Console.WriteLine("CALL");
+                    CALL(arg);
+                }
+                else if (arg == 0b0000_0000_0110_0100)
+                {
+                    Console.WriteLine("CLRWDT");  //TODO: CLRWDT muss noch implementiert werden
+                }
+                else if ((arg & 0b1111_1000_0000_0000) == 0b0010_1000_0000_0000)
+                {
+                    Console.WriteLine("GOTO");
+                    GOTO(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1000_0000_0000)
+                {
+                    Console.WriteLine("IORLW");
+                    IORLW(arg);
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0000_0000_0000)
+                {
+                    Console.WriteLine("MOVLW");
+                    MOVLW(arg);
+                }
+                else if (arg == 0b1001)
+                {
+                    Console.WriteLine("RETFIE");
+                }
+                else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0100_0000_0000)
+                {
+                    Console.WriteLine("RETLW");
+                    RETLW(arg);
+                }
+                else if (arg == 0b1000)
+                {
+                    Console.WriteLine("RETURN");
+                    RETURN();
+                }
+                else if (arg == 0b0110_0011)
+                {
+                    Console.WriteLine("SLEEP"); //:TODO SLEEP implementieren
+                }
+                else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1100_0000_0000)
+                {
+                    Console.WriteLine("SUBLW");
+                    SUBLW(arg);
+                }
+                else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1010_0000_0000)
+                {
+                    Console.WriteLine("XORLW");
+                    XORLW(arg);
+                }
+            } catch (FSRZero)
             {
-                Console.WriteLine("ADDWF");
-                ADDWF(arg);
-            } else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0101_0000_0000)
-            {
-                Console.WriteLine("ANDWF");
-                ANDWF(arg);
-            }
-            else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_1000_0000)
-            {
-                Console.WriteLine("CLRF");
-                CLRF(arg);
-            }
-            else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0001_0000_0000)
-            {
-                Console.WriteLine("CLRW");
-                CLRW();
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1001_0000_0000)
-            {
-                Console.WriteLine("COMF");
-                COMF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0011_0000_0000)
-            {
-                Console.WriteLine("DECF");
-                DECF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1011_0000_0000)
-            {
-                Console.WriteLine("DECFSZ");
-                DECFSZ(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1010_0000_0000)
-            {
-                Console.WriteLine("INCF");
-                INCF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1111_0000_0000)
-            {
-                Console.WriteLine("INCFSZ");
-                INCFSZ(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0100_0000_0000)
-            {
-                Console.WriteLine("IORWF");
-                IORWF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1000_0000_0000)
-            {
-                Console.WriteLine("MOVF");
-                MOVF(arg);
-            }
-            else if ((arg & 0b1111_1111_1000_0000) == 0b0000_0000_1000_0000)
-            {
-                Console.WriteLine("MOVWF");
-                MOVWF(arg);
-            }
-            else if ((arg & 0b1111_1111_1001_1111) == 0b0000_0000_0000_0000)
-            {
+                Console.WriteLine("Cought FSRZero exception");
                 Console.WriteLine("NOP");
                 System.Threading.Thread.Sleep(10);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1101_0000_0000)
-            {
-                Console.WriteLine("RLF");
-                RLF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1100_0000_0000)
-            {
-                Console.WriteLine("RRF");
-                RRF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0010_0000_0000)
-            {
-                Console.WriteLine("SUBWF");
-                SUBWF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_1110_0000_0000)
-            {
-                Console.WriteLine("SWAPF");
-                SWAPF(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0000_0110_0000_0000)
-            {
-                Console.WriteLine("XORWF");
-                XORWF(arg);
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0000_0000_0000)
-            {
-                Console.WriteLine("BCF");
-                BCF(arg);
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0001_0100_0000_0000)
-            {
-                Console.WriteLine("BSF");
-                BSF(arg);
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1000_0000_0000)
-            {
-                Console.WriteLine("BTFSC");
-                BTFSC(arg);
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0001_1100_0000_0000)
-            {
-                Console.WriteLine("BTFSS");
-                BTFSS(arg);
-            }
-            else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1110_0000_0000)
-            {
-                Console.WriteLine("ADDLW");
-                ADDLW(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1001_0000_0000)
-            {
-                Console.WriteLine("ANDLW");
-                ANDLW(arg);
-            }
-            else if ((arg & 0b1111_1000_0000_0000) == 0b0010_0000_0000_0000)
-            {
-                Console.WriteLine("CALL");
-                CALL(arg);
-            }
-            else if (arg == 0b0000_0000_0110_0100)
-            {
-                Console.WriteLine("CLRWDT");  //TODO: CLRWDT muss noch implementiert werden
-            }
-            else if ((arg & 0b1111_1000_0000_0000) == 0b0010_1000_0000_0000)
-            {
-                Console.WriteLine("GOTO");
-                GOTO(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1000_0000_0000)
-            {
-                Console.WriteLine("IORLW");
-                IORLW(arg);
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0000_0000_0000)
-            {
-                Console.WriteLine("MOVLW");
-                MOVLW(arg);
-            }
-            else if (arg == 0b1001)
-            {
-                Console.WriteLine("RETFIE");
-            }
-            else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0100_0000_0000)
-            {
-                Console.WriteLine("RETLW");
-                RETLW(arg);
-            }
-            else if (arg == 0b1000)
-            {
-                Console.WriteLine("RETURN");
-                RETURN();
-            }
-            else if (arg == 0b0110_0011)
-            {
-                Console.WriteLine("SLEEP"); //:TODO SLEEP implementieren
-            }
-            else if ((arg & 0b1111_1110_0000_0000) == 0b0011_1100_0000_0000)
-            {
-                Console.WriteLine("SUBLW");
-                SUBLW(arg);
-            }
-            else if ((arg & 0b1111_1111_0000_0000) == 0b0011_1010_0000_0000)
-            {
-                Console.WriteLine("XORLW");
-                XORLW(arg);
             }
             pc++; //pc in register implementieren?
             Console.WriteLine(W);
@@ -694,6 +705,16 @@ namespace PicSim
 
         private int readRegister(int addr)
         {
+            if (addr == 0)
+            {
+                int fsr = readRegister(0x04);
+                if (fsr == 0)
+                {
+                    throw new FSRZero();
+                }
+                else { return readRegister(fsr); }
+            }
+
             if ((R[3] & 0b10_0000) == 0)
             {
                 return R[addr];
@@ -798,6 +819,14 @@ namespace PicSim
         {
             top = (items.Length + top - 1) % items.Length;
             return items[top];
+        }
+    }
+
+    class FSRZero: Exception
+    {
+        public FSRZero()
+        {
+
         }
     }
 }
