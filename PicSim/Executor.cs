@@ -549,9 +549,9 @@ namespace PicSim
         private void BCF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int bitPosition = 0b0011_1100_0000 & arg;
+            int bitPosition = 0b0011_1000_0000 & arg;
             int erg = readRegister(regaddr);
-            bitPosition = bitPosition >> 5;
+            bitPosition = bitPosition >> 7;
             erg &= ~(1 << bitPosition);
             writeRegister(regaddr, erg);
         }
@@ -559,9 +559,9 @@ namespace PicSim
         private void BSF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int bitPosition = 0b0011_1100_0000 & arg;
+            int bitPosition = 0b0011_1000_0000 & arg;
             int erg = readRegister(regaddr);
-            bitPosition = bitPosition >> 5;
+            bitPosition = bitPosition >> 7;
             erg |= 1 << bitPosition;
             writeRegister(regaddr, erg);
         }
@@ -570,8 +570,8 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
-            int bitPosition = 0b0011_1100_0000 & arg;
-            bitPosition = bitPosition >> 5;
+            int bitPosition = 0b0011_1000_0000 & arg;
+            bitPosition = bitPosition >> 7;
             if(!IsBitSet(erg, bitPosition))
             {
                 pc++;
@@ -582,8 +582,8 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
-            int bitPosition = 0b0011_1100_0000 & arg;
-            bitPosition = bitPosition >> 5;
+            int bitPosition = 0b0011_1000_0000 & arg;
+            bitPosition = bitPosition >> 7;
             if (IsBitSet(erg, bitPosition))
             {
                 pc++;
