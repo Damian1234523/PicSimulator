@@ -442,10 +442,12 @@ namespace PicSim
             erg = erg << 1;
             int statusreg = readRegister(0x03);
             statusreg = statusreg & 1;
+            SetCarryBit(0);
+            erg = Cut8(erg, true);
             if (statusreg == 1)
             {
                 erg++;
-                SetCarryBit(0);
+                
             }
             if ((0b1000_0000 & arg) == 128)
             {
@@ -461,13 +463,18 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
+            bool underflow;
+            if ((erg & 1) == 1)
+            {
+                underflow = true;
+            }
+            else { underflow = false; }
             erg = erg >> 1;
             int statusreg = readRegister(0x03);
             statusreg = statusreg & 1;
             if (statusreg == 1)
             {
                 erg += 128;
-                SetCarryBit(0);
             }
             if ((0b1000_0000 & arg) == 128)
             {
@@ -477,6 +484,8 @@ namespace PicSim
             {
                 W = erg;
             }
+            SetCarryBit(0);
+            if (underflow) SetCarryBit(1);
         }
 
         private void SUBWF(int arg)
@@ -752,6 +761,22 @@ namespace PicSim
         private void Cut4 (int z)
         {
             if (z > 15) SetDCarryBit(1);
+        }
+
+        private bool CheckCarry()
+        {
+            int i = readRegister(0x03);
+            i = i & 1;
+
+            if (i == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 
