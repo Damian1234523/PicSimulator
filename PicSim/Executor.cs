@@ -13,6 +13,8 @@ namespace PicSim
         private int[] R; //Register
         private DropOutStack<int> Stack;
         private int intArg;
+
+        private int prescaler; 
         
         //TODO: anderen notwendigen schlonz implementieren
 
@@ -22,6 +24,7 @@ namespace PicSim
             W = 0;
             R = new int[255];
             Stack = new DropOutStack<int>(8);
+            prescaler = 0;
         }
 
         public void SetIntArg(int i)
@@ -672,6 +675,31 @@ namespace PicSim
             pc = Stack.Pop() - 1;
         }
         //=================================================================================================
+
+            void IncTimer(int i)
+        {
+            int timer = readRegister(0x01);
+            int optionsRegister = readRegister(0x81);
+            if ((optionsRegister & 0b10_0000) == 0b10_0000)
+            {
+                //Extrener Timer
+            }
+            else
+            {
+                //Interner Timer
+                if ((optionsRegister & 0b1000) == 0b1000)
+                {
+                    //Nutzung timer ohne Prescaler
+                    writeRegister(0x01, timer + i);
+                }
+                else
+                {
+                    //Nutzung timer mit Prescaler
+                    int prescalerTyp = optionsRegister & 0b111;
+                    double maxSize = Math.Pow(2.0, prescalerTyp + 1);
+                }
+            }
+        }
 
         bool IsBitSet(int b, int pos)
         {
