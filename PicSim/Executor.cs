@@ -284,6 +284,7 @@ namespace PicSim
         {
             W = 0;
             ZeroBit(0);
+            IncTimer(1);
         }
 
         private void CLRF(int arg)
@@ -291,6 +292,7 @@ namespace PicSim
             int regaddr = 0b0111_1111 & arg;
             writeRegister(regaddr, 0);
             ZeroBit(0);
+            IncTimer(1);
         }
 
         
@@ -309,6 +311,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void ADDWF(int arg)
@@ -325,7 +328,7 @@ namespace PicSim
             {
                 W = erg;
             }
-            
+            IncTimer(1);
         }
 
         private void COMF(int arg)
@@ -343,6 +346,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void DECF(int arg)
@@ -360,6 +364,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void DECFSZ(int arg)
@@ -376,7 +381,16 @@ namespace PicSim
             {
                 W = erg;
             }
-            if (erg == 0) pc++;
+            if (erg == 0)
+            {
+                pc++;
+                IncTimer(2);
+            }
+            else
+            {
+                IncTimer(1);
+            }
+            
         }
 
         private void INCF (int arg)
@@ -393,6 +407,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void INCFSZ (int arg)
@@ -409,7 +424,11 @@ namespace PicSim
             {
                 W = erg;
             }
-            if (erg == 0) pc++;
+            if (erg == 0) {
+                pc++;
+                IncTimer(2);
+            }
+            else { IncTimer(1); }
         }
 
         private void IORWF(int arg)
@@ -425,7 +444,7 @@ namespace PicSim
             {
                 W = erg;
             }
-            
+            IncTimer(1);
         }
 
         private void MOVF (int arg)
@@ -441,12 +460,14 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void MOVWF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
             writeRegister(regaddr, W);
+            IncTimer(1);
         }
 
         private void RLF(int arg)
@@ -471,6 +492,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void RRF(int arg)
@@ -500,6 +522,7 @@ namespace PicSim
             }
             SetCarryBit(0);
             if (underflow) SetCarryBit(1);
+            IncTimer(1);
         }
 
         private void SUBWF(int arg)
@@ -519,6 +542,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void SWAPF(int arg)
@@ -543,6 +567,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void XORWF(int arg)
@@ -558,6 +583,7 @@ namespace PicSim
             {
                 W = erg;
             }
+            IncTimer(1);
         }
 
         private void BCF(int arg)
@@ -568,6 +594,7 @@ namespace PicSim
             bitPosition = bitPosition >> 7;
             erg &= ~(1 << bitPosition);
             writeRegister(regaddr, erg);
+            IncTimer(1);
         }
 
         private void BSF(int arg)
@@ -578,6 +605,7 @@ namespace PicSim
             bitPosition = bitPosition >> 7;
             erg |= 1 << bitPosition;
             writeRegister(regaddr, erg);
+            IncTimer(1);
         }
 
         private void BTFSC(int arg)
@@ -586,9 +614,14 @@ namespace PicSim
             int erg = readRegister(regaddr);
             int bitPosition = 0b0011_1000_0000 & arg;
             bitPosition = bitPosition >> 7;
-            if(!IsBitSet(erg, bitPosition))
+            if (!IsBitSet(erg, bitPosition))
             {
                 pc++;
+                IncTimer(2);
+            }
+            else
+            {
+                IncTimer(1);
             }
         }
 
@@ -601,6 +634,10 @@ namespace PicSim
             if (IsBitSet(erg, bitPosition))
             {
                 pc++;
+                IncTimer(2);
+            } else
+            {
+                IncTimer(1);
             }
         }
 
@@ -609,6 +646,7 @@ namespace PicSim
             int erg = 0b1111_1111 & arg;
             W = Cut8(W + erg, true);
             ZeroBit(W);
+            IncTimer(1);
         }
 
         private void ANDLW(int arg)
@@ -616,6 +654,7 @@ namespace PicSim
             int erg = 0b1111_1111 & arg;
             W = W & erg;
             ZeroBit(W);
+            IncTimer(1);
         }
 
         private void CALL(int arg)
@@ -623,12 +662,14 @@ namespace PicSim
             Stack.Push(pc + 1);
             int addr = 0b0111_1111 & arg;
             pc = addr - 1;
+            IncTimer(2);
         }
 
         private void GOTO(int arg)
         {
             int addr = 0b0111_1111 & arg;
             pc = addr - 1;
+            IncTimer(2);
         }
 
         private void IORLW(int arg)
@@ -636,6 +677,7 @@ namespace PicSim
             int erg = 0b1111_1111 & arg;
             W = W | erg;
             ZeroBit(W);
+            IncTimer(1);
         }
 
         private void XORLW(int arg)
@@ -643,6 +685,7 @@ namespace PicSim
             int erg = 0b1111_1111 & arg;
             W = W ^ erg;
             ZeroBit(W);
+            IncTimer(1);
         }
 
         private void SUBLW(int arg)
@@ -652,27 +695,32 @@ namespace PicSim
             if (W < 0) SetCarryBit(1);
             W = Math.Abs(W);
             ZeroBit(W);
+            IncTimer(1);
         }
 
         private void RETURN()
         {
             pc = Stack.Pop() - 1;
+            IncTimer(2);
         }
 
         private void MOVLW(int arg)
         {
             W = 0b1111_1111 & arg;
+            IncTimer(1);
         }
 
         private void RETLW(int arg)
         {
             pc = Stack.Pop() - 1;
             W = 0b1111_1111 & arg;
+            IncTimer(2);
         }
 
         private void RETFIE()
         {
             pc = Stack.Pop() - 1;
+            IncTimer(2);
         }
         //=================================================================================================
 
@@ -697,6 +745,13 @@ namespace PicSim
                     //Nutzung timer mit Prescaler
                     int prescalerTyp = optionsRegister & 0b111;
                     double maxSize = Math.Pow(2.0, prescalerTyp + 1);
+
+                    prescaler =+ i;
+                    if (prescaler >= maxSize)
+                    {
+                        writeRegister(0x01, timer + 1);
+                        prescaler =- (int)maxSize;
+                    }
                 }
             }
         }
