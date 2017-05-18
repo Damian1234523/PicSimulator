@@ -13,6 +13,7 @@ namespace PicSim
         private int[] R; //Register
         private DropOutStack<int> Stack;
         private int intArg;
+        private bool ignoreBank;
 
         private int prescaler; 
         
@@ -25,6 +26,7 @@ namespace PicSim
             R = new int[255];
             Stack = new DropOutStack<int>(8);
             prescaler = 0;
+            ignoreBank = false;
         }
 
         public void SetIntArg(int i)
@@ -726,7 +728,9 @@ namespace PicSim
 
             void IncTimer(int i)
         {
+            ignoreBank = true;
             int timer = readRegister(0x01);
+            ignoreBank = true;
             int optionsRegister = readRegister(0x81);
             if ((optionsRegister & 0b10_0000) == 0b10_0000)
             {
@@ -754,6 +758,10 @@ namespace PicSim
                     }
                 }
             }
+            if (timer > 0b1111_1111)
+            {
+                R[0x0b] |= 1 << 2;
+            }
         }
 
         bool IsBitSet(int b, int pos)
@@ -769,7 +777,7 @@ namespace PicSim
             {
                 R[addr] = value;
                 R[addr + 128] = value;
-            } else if (value == 0x0b | value == 0x0a | value == 0x04 | value == 0x03 | value == 0x02)
+            } else if (addr == 0x0b | addr == 0x0a | addr == 0x04 | addr == 0x03 | addr == 0x02)
             {
                 R[addr] = value;
                 R[addr + 128] = value;
@@ -797,7 +805,11 @@ namespace PicSim
                 }
                 else { return readRegister(fsr); }
             }
-
+            if (ignoreBank)
+            {
+                ignoreBank = false;
+                return R[addr];
+            }
             if ((R[3] & 0b10_0000) == 0)
             {
                 return R[addr];
