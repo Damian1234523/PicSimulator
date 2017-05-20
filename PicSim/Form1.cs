@@ -55,6 +55,7 @@ namespace PicSim
                 executor.SetIntArg(sourceManager.GetSingleArg1(4));
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
                 argumentListBox1.SelectedIndex = 0;
+                completeListBox1.SelectedIndex = 0;
             }
         }
 
@@ -165,7 +166,8 @@ namespace PicSim
         {
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
             printInfo();
-            argumentListBox1.SelectedIndex=executor.GetPc();
+            argumentListBox1.SelectedIndex = executor.GetPc();
+            completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
         }
     }
 }

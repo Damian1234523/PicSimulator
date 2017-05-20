@@ -10,7 +10,12 @@ namespace PicSim
     {
         private List<string> sourceComplete = new List<string>();
         private List<int> args1 = new List<int>();
+        private List<int> highlightIndex = new List<int>();
 
+        public int getIndexInCode(int i)
+        {
+            return highlightIndex[i];
+        }
         public List<string> GetSourceComplete()
         {
             return sourceComplete;
@@ -29,16 +34,19 @@ namespace PicSim
         public void FillSource(List<string> l)
         {
             sourceComplete = l;
-
+            int c = 0;
             foreach (string line in sourceComplete)
             {
+                
                 string sArg1 = line.Substring(5, 4);
 
                 if (sArg1 != "    ")
                 {
                     args1.Add(Convert.ToInt32(sArg1, 16));
-                    
+                    highlightIndex.Add(c);
                 }
+
+                c++;
             }
         }
 
