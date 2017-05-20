@@ -56,7 +56,10 @@ namespace PicSim
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
                 argumentListBox1.SelectedIndex = 0;
                 completeListBox1.SelectedIndex = 0;
-                
+                foreach (string item in sourceManager.GetSourceComplete())
+                {
+                    breakpoints.Add(false);
+                }
             }
         }
 
@@ -177,7 +180,14 @@ namespace PicSim
             int index = this.completeListBox1.IndexFromPoint(e.Location);
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
-                
+                if (breakpoints[index] == false)
+                {
+                    breakpoints[index] = true;
+                }
+                else
+                {
+                    breakpoints[index] = false;
+                }
             }
         }
 
