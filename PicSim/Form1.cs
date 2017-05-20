@@ -18,7 +18,11 @@ namespace PicSim
             InitializeComponent();
             raGridView1.Rows.Add();
             rbGridView1.Rows.Add();
+            tbFrequency.Text = "1000";
+            
         }
+        Timer rTimer = new Timer();
+
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
@@ -68,7 +72,24 @@ namespace PicSim
 
         private void btRun_Click(object sender, EventArgs e)
         {
+            if (timerRun.Enabled == false)
+            {
+                double frequency = double.Parse(tbFrequency.Text);
 
+                frequency = (1 / frequency) * 1000;
+
+                //rTimer.Interval=frequency;
+
+                timerRun.Interval = (int)frequency;
+                timerRun.Enabled = true;
+
+                btRun.Text = "Halt stop!";
+            }
+            else
+            {
+                timerRun.Enabled = false;
+                btRun.Text = "Run";
+            }
         }
 
         void printSource(List<int> arg1, List<string> sourceComplete)
@@ -135,6 +156,10 @@ namespace PicSim
             }
         }
 
-       
+        private void timerRun_Tick(object sender, EventArgs e)
+        {
+            executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
+            printInfo();
+        }
     }
 }

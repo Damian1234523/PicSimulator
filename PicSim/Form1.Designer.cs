@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +43,6 @@
             this.lbArg1 = new System.Windows.Forms.Label();
             this.lbArg2 = new System.Windows.Forms.Label();
             this.statusGridView = new System.Windows.Forms.DataGridView();
-            this.raGridView1 = new System.Windows.Forms.DataGridView();
-            this.rbGridView1 = new System.Windows.Forms.DataGridView();
             this.C = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DC = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Z = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -52,6 +51,7 @@
             this.RP0 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.RP1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.IRP = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.raGridView1 = new System.Windows.Forms.DataGridView();
             this.A0 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.A1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.A2 = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -60,6 +60,7 @@
             this.A5 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.A6 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.A7 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.rbGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewButtonColumn8 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn7 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn6 = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -68,6 +69,9 @@
             this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tbFrequency = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timerRun = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -141,7 +145,7 @@
             // 
             // btRun
             // 
-            this.btRun.Location = new System.Drawing.Point(1114, 27);
+            this.btRun.Location = new System.Drawing.Point(996, 28);
             this.btRun.Name = "btRun";
             this.btRun.Size = new System.Drawing.Size(75, 23);
             this.btRun.TabIndex = 4;
@@ -151,7 +155,7 @@
             // 
             // btOneStep
             // 
-            this.btOneStep.Location = new System.Drawing.Point(1033, 28);
+            this.btOneStep.Location = new System.Drawing.Point(915, 28);
             this.btOneStep.Name = "btOneStep";
             this.btOneStep.Size = new System.Drawing.Size(75, 23);
             this.btOneStep.TabIndex = 5;
@@ -204,42 +208,6 @@
             this.statusGridView.Size = new System.Drawing.Size(330, 77);
             this.statusGridView.TabIndex = 19;
             // 
-            // raGridView1
-            // 
-            this.raGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.raGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.raGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.A0,
-            this.A1,
-            this.A2,
-            this.A3,
-            this.A4,
-            this.A5,
-            this.A6,
-            this.A7});
-            this.raGridView1.Location = new System.Drawing.Point(871, 151);
-            this.raGridView1.Name = "raGridView1";
-            this.raGridView1.Size = new System.Drawing.Size(252, 94);
-            this.raGridView1.TabIndex = 20;
-            // 
-            // rbGridView1
-            // 
-            this.rbGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.rbGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rbGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewButtonColumn8,
-            this.dataGridViewButtonColumn7,
-            this.dataGridViewButtonColumn6,
-            this.dataGridViewButtonColumn5,
-            this.dataGridViewButtonColumn4,
-            this.dataGridViewButtonColumn3,
-            this.dataGridViewButtonColumn2,
-            this.dataGridViewButtonColumn1});
-            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
-            this.rbGridView1.Name = "rbGridView1";
-            this.rbGridView1.Size = new System.Drawing.Size(252, 103);
-            this.rbGridView1.TabIndex = 21;
-            // 
             // C
             // 
             this.C.HeaderText = "C";
@@ -287,6 +255,24 @@
             this.IRP.HeaderText = "IRP";
             this.IRP.Name = "IRP";
             this.IRP.Width = 31;
+            // 
+            // raGridView1
+            // 
+            this.raGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.raGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.raGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.A0,
+            this.A1,
+            this.A2,
+            this.A3,
+            this.A4,
+            this.A5,
+            this.A6,
+            this.A7});
+            this.raGridView1.Location = new System.Drawing.Point(871, 151);
+            this.raGridView1.Name = "raGridView1";
+            this.raGridView1.Size = new System.Drawing.Size(252, 94);
+            this.raGridView1.TabIndex = 20;
             // 
             // A0
             // 
@@ -336,6 +322,24 @@
             this.A7.Name = "A7";
             this.A7.Width = 26;
             // 
+            // rbGridView1
+            // 
+            this.rbGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.rbGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.rbGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewButtonColumn8,
+            this.dataGridViewButtonColumn7,
+            this.dataGridViewButtonColumn6,
+            this.dataGridViewButtonColumn5,
+            this.dataGridViewButtonColumn4,
+            this.dataGridViewButtonColumn3,
+            this.dataGridViewButtonColumn2,
+            this.dataGridViewButtonColumn1});
+            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
+            this.rbGridView1.Name = "rbGridView1";
+            this.rbGridView1.Size = new System.Drawing.Size(252, 103);
+            this.rbGridView1.TabIndex = 21;
+            // 
             // dataGridViewButtonColumn8
             // 
             this.dataGridViewButtonColumn8.HeaderText = "B0";
@@ -384,11 +388,33 @@
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.Width = 26;
             // 
+            // tbFrequency
+            // 
+            this.tbFrequency.Location = new System.Drawing.Point(1078, 28);
+            this.tbFrequency.Name = "tbFrequency";
+            this.tbFrequency.Size = new System.Drawing.Size(76, 20);
+            this.tbFrequency.TabIndex = 22;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1161, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "cps";
+            // 
+            // timerRun
+            // 
+            this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1201, 563);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbFrequency);
             this.Controls.Add(this.rbGridView1);
             this.Controls.Add(this.raGridView1);
             this.Controls.Add(this.statusGridView);
@@ -455,6 +481,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.TextBox tbFrequency;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timerRun;
     }
 }
 
