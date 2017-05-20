@@ -29,6 +29,7 @@ namespace PicSim
         public void FillSource(List<string> l)
         {
             sourceComplete = l;
+
             foreach (string line in sourceComplete)
             {
                 string sArg1 = line.Substring(5, 4);
@@ -36,6 +37,7 @@ namespace PicSim
                 if (sArg1 != "    ")
                 {
                     args1.Add(Convert.ToInt32(sArg1, 16));
+                    
                 }
             }
         }

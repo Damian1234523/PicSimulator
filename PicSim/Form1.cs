@@ -54,6 +54,7 @@ namespace PicSim
                 sr.Close();
                 executor.SetIntArg(sourceManager.GetSingleArg1(4));
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
+                argumentListBox1.SelectedIndex = 0;
             }
         }
 
@@ -64,9 +65,8 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-            //executor.Execute(0x0733);
-            executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
-            printInfo();
+            
+            step();
             
         }
 
@@ -158,8 +158,14 @@ namespace PicSim
 
         private void timerRun_Tick(object sender, EventArgs e)
         {
+            step();
+        }
+
+        private void step()
+        {
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
             printInfo();
+            argumentListBox1.SelectedIndex=executor.GetPc();
         }
     }
 }
