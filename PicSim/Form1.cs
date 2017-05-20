@@ -19,10 +19,10 @@ namespace PicSim
             raGridView1.Rows.Add();
             rbGridView1.Rows.Add();
             tbFrequency.Text = "1000";
-            
+            completeListBox1.MouseDoubleClick += new MouseEventHandler(completeListBox1_DoubleClick);
         }
         Timer rTimer = new Timer();
-
+        List<bool> breakpoints = new List<bool>();
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
@@ -56,6 +56,7 @@ namespace PicSim
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
                 argumentListBox1.SelectedIndex = 0;
                 completeListBox1.SelectedIndex = 0;
+                
             }
         }
 
@@ -168,6 +169,21 @@ namespace PicSim
             printInfo();
             argumentListBox1.SelectedIndex = executor.GetPc();
             completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
+            
+        }
+
+        private void completeListBox1_DoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.completeListBox1.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                
+            }
+        }
+
+        private void completeListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("Dopplekick");
         }
     }
 }

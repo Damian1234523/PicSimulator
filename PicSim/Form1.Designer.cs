@@ -142,6 +142,7 @@
             this.completeListBox1.Name = "completeListBox1";
             this.completeListBox1.Size = new System.Drawing.Size(615, 459);
             this.completeListBox1.TabIndex = 3;
+            this.completeListBox1.SelectedIndexChanged += new System.EventHandler(this.completeListBox1_SelectedIndexChanged);
             // 
             // btRun
             // 
