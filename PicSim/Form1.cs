@@ -20,6 +20,10 @@ namespace PicSim
             rbGridView1.Rows.Add();
             tbFrequency.Text = "1000";
             completeListBox1.MouseDoubleClick += new MouseEventHandler(completeListBox1_DoubleClick);
+
+            completeListBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            completeListBox1.DrawItem += new DrawItemEventHandler(ListBox1_DrawItem);
+            Controls.Add(completeListBox1);
         }
         Timer rTimer = new Timer();
         List<bool> breakpoints = new List<bool>();
@@ -28,7 +32,8 @@ namespace PicSim
         Executor executor = new Executor();
 
         bool breakpointHit = false;
-        
+
+        bool firstRun = true;
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -54,12 +59,14 @@ namespace PicSim
                 sr.Close();
                 executor.SetIntArg(sourceManager.GetSingleArg1(4));
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
+                
                 argumentListBox1.SelectedIndex = 0;
                 completeListBox1.SelectedIndex = 0;
                 foreach (string item in sourceManager.GetSourceComplete())
                 {
                     breakpoints.Add(false);
                 }
+                firstRun = false;
             }
         }
 
@@ -197,15 +204,46 @@ namespace PicSim
                 {
                     breakpoints[index] = true;
                     Console.WriteLine("activated breakpoint at index: " + index);
+                    completeListBox1.Refresh();
                 }
                 else
                 {
                     breakpoints[index] = false;
                     Console.WriteLine("deactivated breakpoint at index: " + index);
+                    completeListBox1.Refresh();
                 }
             }
         }
 
-        
+        private void ListBox1_DrawItem(object sender,
+    System.Windows.Forms.DrawItemEventArgs e)
+        {
+            // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+            // Define the default color of the brush as black.
+            Brush myBrush = Brushes.Black;
+
+           
+            if (!firstRun)
+            {
+                if (breakpoints[e.Index])
+                {
+                    myBrush = Brushes.Red;
+                }
+                else
+                {
+                    myBrush = Brushes.Black;
+                }
+            } else
+            {
+                myBrush = Brushes.Black;
+            }
+            // Draw the current item text based on the current Font 
+            // and the custom brush settings.
+            e.Graphics.DrawString(completeListBox1.Items[e.Index].ToString(),
+                e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            // If the ListBox has focus, draw a focus rectangle around the selected item.
+            e.DrawFocusRectangle();
+        }
     }
 }
