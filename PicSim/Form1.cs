@@ -24,7 +24,13 @@ namespace PicSim
             completeListBox1.DrawMode = DrawMode.OwnerDrawFixed;
             completeListBox1.DrawItem += new DrawItemEventHandler(ListBox1_DrawItem);
             Controls.Add(completeListBox1);
+
+            raGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(raGridView1_listener);
+            rbGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(rbGridView1_listener);
         }
+
+        
+
         Timer rTimer = new Timer();
         List<bool> breakpoints = new List<bool>();
 
@@ -244,6 +250,36 @@ namespace PicSim
                 e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
             // If the ListBox has focus, draw a focus rectangle around the selected item.
             e.DrawFocusRectangle();
+        }
+
+        private void rbGridView1_listener(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                if (e.RowIndex == 0)
+                {
+                    executor.SetRegisterB(e.ColumnIndex);
+                }
+                printInfo();
+            }
+        }
+
+        private void raGridView1_listener(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                if (e.RowIndex == 0)
+                {
+                    executor.SetRegisterA(e.ColumnIndex);
+                }
+                printInfo();
+            }
         }
     }
 }

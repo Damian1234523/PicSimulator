@@ -63,6 +63,40 @@ namespace PicSim
             return R[0x86];
         }
 
+        public void SetRegisterA(int i)
+        {
+            int ra = readRegister(0x05);
+            if (IsBitSet(ra, i))
+            {
+                //zu 0 machen
+                ra &= ~(1 << i);
+            }
+            else
+            {
+                // zu 1 machen
+                ra |= 1 << i;
+            }
+            R[0x05] = ra;
+        }
+
+        public void SetRegisterB(int i)
+        {
+            int rb = readRegister(0x06);
+            if (IsBitSet(rb, i))
+            {
+                //zu 0 machen
+                rb &= ~(1 << i);
+            }
+            else
+            {
+                // zu 1 machen
+                rb |= 1 << i;
+            }
+            R[0x06] = rb;
+        }
+
+        
+
         public void Execute (int arg)
         {
             try
