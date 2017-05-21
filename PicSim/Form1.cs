@@ -18,13 +18,22 @@ namespace PicSim
             InitializeComponent();
             raGridView1.Rows.Add();
             rbGridView1.Rows.Add();
+            tbFrequency.Text = "1000";
+            completeListBox1.MouseDoubleClick += new MouseEventHandler(completeListBox1_DoubleClick);
+
+            completeListBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            completeListBox1.DrawItem += new DrawItemEventHandler(ListBox1_DrawItem);
+            Controls.Add(completeListBox1);
         }
+        Timer rTimer = new Timer();
+        List<bool> breakpoints = new List<bool>();
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
-        
 
-        
+        bool breakpointHit = false;
+
+        bool firstRun = true;
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -50,6 +59,14 @@ namespace PicSim
                 sr.Close();
                 executor.SetIntArg(sourceManager.GetSingleArg1(4));
                 printSource(sourceManager.GetArgs1(), sourceManager.GetSourceComplete());
+                
+                argumentListBox1.SelectedIndex = 0;
+                completeListBox1.SelectedIndex = 0;
+                foreach (string item in sourceManager.GetSourceComplete())
+                {
+                    breakpoints.Add(false);
+                }
+                firstRun = false;
             }
         }
 
@@ -60,15 +77,32 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-            //executor.Execute(0x0733);
-            executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
-            printInfo();
+            
+            step();
             
         }
 
         private void btRun_Click(object sender, EventArgs e)
         {
+            
+            if (timerRun.Enabled == false)
+            {
+                double frequency = double.Parse(tbFrequency.Text);
 
+                frequency = (1 / frequency) * 1000;
+
+                //rTimer.Interval=frequency;
+
+                timerRun.Interval = (int)frequency;
+                timerRun.Enabled = true;
+
+                btRun.Text = "Halt stop!";
+            }
+            else
+            {
+                timerRun.Enabled = false;
+                btRun.Text = "Run";
+            }
         }
 
         void printSource(List<int> arg1, List<string> sourceComplete)
@@ -135,6 +169,81 @@ namespace PicSim
             }
         }
 
-       
+        private void timerRun_Tick(object sender, EventArgs e)
+        {
+            completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
+            if (breakpoints[completeListBox1.SelectedIndex] & !breakpointHit)
+            {
+                timerRun.Enabled = false;
+                breakpointHit = true;
+                btRun.Text = "Run";
+            }
+            else
+            {
+                step();
+                breakpointHit = false;
+            }
+            
+        }
+
+        private void step()
+        {
+            executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
+            printInfo();
+            argumentListBox1.SelectedIndex = executor.GetPc();
+            completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
+            
+        }
+
+        private void completeListBox1_DoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.completeListBox1.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                if (breakpoints[index] == false)
+                {
+                    breakpoints[index] = true;
+                    Console.WriteLine("activated breakpoint at index: " + index);
+                    completeListBox1.Refresh();
+                }
+                else
+                {
+                    breakpoints[index] = false;
+                    Console.WriteLine("deactivated breakpoint at index: " + index);
+                    completeListBox1.Refresh();
+                }
+            }
+        }
+
+        private void ListBox1_DrawItem(object sender,
+    System.Windows.Forms.DrawItemEventArgs e)
+        {
+            // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+            // Define the default color of the brush as black.
+            Brush myBrush = Brushes.Black;
+
+           
+            if (!firstRun)
+            {
+                if (breakpoints[e.Index])
+                {
+                    myBrush = Brushes.Red;
+                }
+                else
+                {
+                    myBrush = Brushes.Black;
+                }
+            } else
+            {
+                myBrush = Brushes.Black;
+            }
+            // Draw the current item text based on the current Font 
+            // and the custom brush settings.
+            e.Graphics.DrawString(completeListBox1.Items[e.Index].ToString(),
+                e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            // If the ListBox has focus, draw a focus rectangle around the selected item.
+            e.DrawFocusRectangle();
+        }
     }
 }
