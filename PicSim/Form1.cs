@@ -26,8 +26,8 @@ namespace PicSim
 
         SourceManager sourceManager = new SourceManager();
         Executor executor = new Executor();
-        
 
+        bool breakpointHit = false;
         
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -77,6 +77,7 @@ namespace PicSim
 
         private void btRun_Click(object sender, EventArgs e)
         {
+            
             if (timerRun.Enabled == false)
             {
                 double frequency = double.Parse(tbFrequency.Text);
@@ -163,7 +164,19 @@ namespace PicSim
 
         private void timerRun_Tick(object sender, EventArgs e)
         {
-            step();
+            completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
+            if (breakpoints[completeListBox1.SelectedIndex] & !breakpointHit)
+            {
+                timerRun.Enabled = false;
+                breakpointHit = true;
+                btRun.Text = "Run";
+            }
+            else
+            {
+                step();
+                breakpointHit = false;
+            }
+            
         }
 
         private void step()
@@ -183,17 +196,16 @@ namespace PicSim
                 if (breakpoints[index] == false)
                 {
                     breakpoints[index] = true;
+                    Console.WriteLine("activated breakpoint at index: " + index);
                 }
                 else
                 {
                     breakpoints[index] = false;
+                    Console.WriteLine("deactivated breakpoint at index: " + index);
                 }
             }
         }
 
-        private void completeListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine("Dopplekick");
-        }
+        
     }
 }
