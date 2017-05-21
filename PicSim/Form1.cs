@@ -259,8 +259,11 @@ namespace PicSim
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                Console.WriteLine("rb zeile: "+ e.ColumnIndex + " reihe: " + e.RowIndex);
-
+                if (e.RowIndex == 0)
+                {
+                    executor.SetRegisterB(e.ColumnIndex);
+                }
+                printInfo();
             }
         }
 
@@ -271,7 +274,11 @@ namespace PicSim
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                Console.WriteLine("ra zeile: " + e.ColumnIndex + " reihe: " + e.RowIndex);
+                if (e.RowIndex == 0)
+                {
+                    executor.SetRegisterA(e.ColumnIndex);
+                }
+                printInfo();
             }
         }
     }
