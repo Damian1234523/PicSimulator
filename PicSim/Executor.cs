@@ -91,26 +91,39 @@ namespace PicSim
             int optionsReg = readRegister(0x81);
             optionsReg = optionsReg & 0b0100_0000;
             int rb = readRegister(0x06);
+
             if (IsBitSet(rb, i))
             {
                 //zu 0 machen
                 rb &= ~(1 << i);
-                if (optionsReg == 0)
+                if (optionsReg == 0 & i == 0)
                 {
                     intcon |= 1 << 1;
                     writeRegister(0x0b, intcon);
-                }
+                }  
             }
             else
             {
                 // zu 1 machen
                 rb |= 1 << i;
-                if (optionsReg == 0b0100_0000)
+                if (optionsReg == 0b0100_0000 & i == 0)
                 {
                     intcon |= 1 << 1;
                     writeRegister(0x0b, intcon);
                 }
             }
+
+            if (i <= 7 & i >= 4)
+            {
+                int tris = R[0x86];
+                if (IsBitSet(tris, i))
+                {
+                    intcon |= 1 << 0;
+                    writeRegister(0x0b, intcon);
+                }
+
+            }
+
             R[0x06] = rb;
         }
 
