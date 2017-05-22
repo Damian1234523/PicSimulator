@@ -15,9 +15,8 @@ namespace PicSim
         private int intArg;
         private bool ignoreBank;
 
-        private int prescaler; 
+        private int prescaler;
         
-        //TODO: anderen notwendigen schlonz implementieren
 
         public Executor()
         {
@@ -70,27 +69,42 @@ namespace PicSim
             {
                 //zu 0 machen
                 ra &= ~(1 << i);
+                
             }
             else
             {
                 // zu 1 machen
                 ra |= 1 << i;
+                
             }
             R[0x05] = ra;
         }
 
         public void SetRegisterB(int i)
         {
+            int intcon = readRegister(0x0b);
+            int optionsReg = readRegister(0x81);
+            optionsReg = optionsReg & 0b0100_0000;
             int rb = readRegister(0x06);
             if (IsBitSet(rb, i))
             {
                 //zu 0 machen
                 rb &= ~(1 << i);
+                if (optionsReg == 0)
+                {
+                    intcon |= 1 << 1;
+                    writeRegister(0x0b, intcon);
+                }
             }
             else
             {
                 // zu 1 machen
                 rb |= 1 << i;
+                if (optionsReg == 0b0100_0000)
+                {
+                    intcon |= 1 << 1;
+                    writeRegister(0x0b, intcon);
+                }
             }
             R[0x06] = rb;
         }
@@ -113,6 +127,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("Timer interrupt");
                     }
                     else if ((INTCON & 0b0001_0010) == 0b0001_0010)
                     {
@@ -121,6 +136,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("RB0 Interrupt");
                     }
                     else if ((INTCON & 0b0000_1001) == 0b0000_1001)
                     {
@@ -129,6 +145,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("RB Port");
                     }
 
                 }
@@ -280,6 +297,7 @@ namespace PicSim
                 else if (arg == 0b1001)
                 {
                     Console.WriteLine("RETFIE");
+                    RETFIE();
                 }
                 else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0100_0000_0000)
                 {
@@ -353,7 +371,10 @@ namespace PicSim
         private void ADDWF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int erg = readRegister(regaddr) + W;
+            //int erg = readRegister(regaddr) + W;
+            int erg = readRegister(regaddr);
+            DigitalCarryPlus(W, erg);
+            erg = erg + W;
             erg = Cut8(erg, true);
             //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
             ZeroBit(erg);
@@ -564,7 +585,10 @@ namespace PicSim
         private void SUBWF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int erg = readRegister(regaddr) - W;
+            //int erg = readRegister(regaddr) - W;
+            int erg = readRegister(regaddr);
+            DigitalCarryMinus(W, erg);
+            erg = erg - W;
             erg = Cut8(erg, true);
             if (erg < 0) SetCarryBit(1);
             erg = Math.Abs(erg);
@@ -680,6 +704,7 @@ namespace PicSim
         private void ADDLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
+            DigitalCarryPlus(W, erg);
             W = Cut8(W + erg, true);
             ZeroBit(W);
             IncTimer(1);
@@ -727,6 +752,7 @@ namespace PicSim
         private void SUBLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
+            DigitalCarryMinus(W, erg);
             W = Cut8(W - erg, true);
             if (W < 0) SetCarryBit(1);
             W = Math.Abs(W);
@@ -755,17 +781,55 @@ namespace PicSim
 
         private void RETFIE()
         {
+            int reg = readRegister(0xb);
+            reg |= 1 << 7;
             pc = Stack.Pop() - 1;
             IncTimer(2);
         }
         //=================================================================================================
 
-            void IncTimer(int i)
+
+        void DigitalCarryPlus(int ww, int i)
         {
-            ignoreBank = true;
-            int timer = readRegister(0x01);
-            ignoreBank = true;
-            int optionsRegister = readRegister(0x81);
+            int reg = readRegister(0x03);
+            ww = ww & 0b1111;
+            i = i & 0b1111;
+
+            if (ww + i > 15)
+            {
+                reg |= 1 << 1;
+            }
+            else
+            {
+                reg &= ~(1 << 1);
+            }
+            writeRegister(0x03, reg);
+
+        }
+
+        void DigitalCarryMinus(int ww, int i)
+        {
+            int reg = readRegister(0x03);
+            ww = ww & 0b1111;
+            i = i & 0b1111;
+
+            if (ww > i)
+            {
+                reg &= ~(1 << 1);
+            }
+            else
+            {
+                reg |= 1 << 1;
+            }
+            writeRegister(0x03, reg);
+        }
+
+        void IncTimer(int i)
+        {
+            
+            int timer = R[1];//readRegister(0x01);
+            //ignoreBank = true;
+            int optionsRegister = R[0x81];//readRegister(0x81);
             if ((optionsRegister & 0b10_0000) == 0b10_0000)
             {
                 //Extrener Timer
@@ -776,7 +840,7 @@ namespace PicSim
                 if ((optionsRegister & 0b1000) == 0b1000)
                 {
                     //Nutzung timer ohne Prescaler
-                    writeRegister(0x01, timer + i);
+                    timer = timer + i;//writeRegister(0x01, timer + i);
                 }
                 else
                 {
@@ -784,18 +848,25 @@ namespace PicSim
                     int prescalerTyp = optionsRegister & 0b111;
                     double maxSize = Math.Pow(2.0, prescalerTyp + 1);
 
-                    prescaler =+ i;
+                    prescaler = prescaler + i;
                     if (prescaler >= maxSize)
                     {
-                        writeRegister(0x01, timer + 1);
-                        prescaler =- (int)maxSize;
+                        //ignoreBank = true;
+                        //writeRegister(0x01, timer + 1);
+                        timer++;
+                        prescaler = prescaler - (int)maxSize;
                     }
                 }
             }
             if (timer > 0b1111_1111)
             {
                 R[0x0b] |= 1 << 2;
+                timer = 0;
+                Console.WriteLine("Timer Voll");
             }
+            //ignoreBank = true;
+            //writeRegister(0x01, timer);
+            R[1] = timer;
         }
 
         bool IsBitSet(int b, int pos)
