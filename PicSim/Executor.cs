@@ -127,6 +127,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("Timer interrupt");
                     }
                     else if ((INTCON & 0b0001_0010) == 0b0001_0010)
                     {
@@ -135,6 +136,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("RB0 Interrupt");
                     }
                     else if ((INTCON & 0b0000_1001) == 0b0000_1001)
                     {
@@ -143,6 +145,7 @@ namespace PicSim
                         INTCON &= ~(1 << 7);
                         writeRegister(0x0b, INTCON);
                         arg = intArg;
+                        Console.WriteLine("RB Port");
                     }
 
                 }
@@ -294,6 +297,7 @@ namespace PicSim
                 else if (arg == 0b1001)
                 {
                     Console.WriteLine("RETFIE");
+                    RETFIE();
                 }
                 else if ((arg & 0b1111_1100_0000_0000) == 0b0011_0100_0000_0000)
                 {
@@ -769,17 +773,19 @@ namespace PicSim
 
         private void RETFIE()
         {
+            int reg = readRegister(0xb);
+            reg |= 1 << 7;
             pc = Stack.Pop() - 1;
             IncTimer(2);
         }
         //=================================================================================================
 
-            void IncTimer(int i)
+        void IncTimer(int i)
         {
             ignoreBank = true;
-            int timer = readRegister(0x01);
-            ignoreBank = true;
-            int optionsRegister = readRegister(0x81);
+            int timer = R[1];//readRegister(0x01);
+            //ignoreBank = true;
+            int optionsRegister = R[0x81];//readRegister(0x81);
             if ((optionsRegister & 0b10_0000) == 0b10_0000)
             {
                 //Extrener Timer
@@ -790,7 +796,7 @@ namespace PicSim
                 if ((optionsRegister & 0b1000) == 0b1000)
                 {
                     //Nutzung timer ohne Prescaler
-                    writeRegister(0x01, timer + i);
+                    timer = timer + i;//writeRegister(0x01, timer + i);
                 }
                 else
                 {
@@ -798,18 +804,25 @@ namespace PicSim
                     int prescalerTyp = optionsRegister & 0b111;
                     double maxSize = Math.Pow(2.0, prescalerTyp + 1);
 
-                    prescaler =+ i;
+                    prescaler = prescaler + i;
                     if (prescaler >= maxSize)
                     {
-                        writeRegister(0x01, timer + 1);
-                        prescaler =- (int)maxSize;
+                        //ignoreBank = true;
+                        //writeRegister(0x01, timer + 1);
+                        timer++;
+                        prescaler = prescaler - (int)maxSize;
                     }
                 }
             }
             if (timer > 0b1111_1111)
             {
                 R[0x0b] |= 1 << 2;
+                timer = 0;
+                Console.WriteLine("Timer Voll");
             }
+            //ignoreBank = true;
+            //writeRegister(0x01, timer);
+            R[1] = timer;
         }
 
         bool IsBitSet(int b, int pos)
