@@ -35,13 +35,11 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.argumentListBox1 = new System.Windows.Forms.ListBox();
-            this.argumentListBox2 = new System.Windows.Forms.ListBox();
             this.completeListBox1 = new System.Windows.Forms.ListBox();
             this.btRun = new System.Windows.Forms.Button();
             this.btOneStep = new System.Windows.Forms.Button();
             this.lbSource = new System.Windows.Forms.Label();
             this.lbArg1 = new System.Windows.Forms.Label();
-            this.lbArg2 = new System.Windows.Forms.Label();
             this.statusGridView = new System.Windows.Forms.DataGridView();
             this.C = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DC = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -72,10 +70,16 @@
             this.tbFrequency = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
+            this.registerGridView1 = new System.Windows.Forms.DataGridView();
+            this.executorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.RegNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.executorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -85,7 +89,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1201, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1467, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -124,25 +128,16 @@
             this.argumentListBox1.FormattingEnabled = true;
             this.argumentListBox1.Location = new System.Drawing.Point(13, 68);
             this.argumentListBox1.Name = "argumentListBox1";
-            this.argumentListBox1.Size = new System.Drawing.Size(68, 459);
+            this.argumentListBox1.Size = new System.Drawing.Size(68, 485);
             this.argumentListBox1.TabIndex = 1;
-            // 
-            // argumentListBox2
-            // 
-            this.argumentListBox2.FormattingEnabled = true;
-            this.argumentListBox2.Location = new System.Drawing.Point(97, 68);
-            this.argumentListBox2.Name = "argumentListBox2";
-            this.argumentListBox2.Size = new System.Drawing.Size(72, 459);
-            this.argumentListBox2.TabIndex = 2;
             // 
             // completeListBox1
             // 
             this.completeListBox1.FormattingEnabled = true;
-            this.completeListBox1.Location = new System.Drawing.Point(250, 68);
+            this.completeListBox1.Location = new System.Drawing.Point(104, 68);
             this.completeListBox1.Name = "completeListBox1";
-            this.completeListBox1.Size = new System.Drawing.Size(615, 459);
+            this.completeListBox1.Size = new System.Drawing.Size(615, 485);
             this.completeListBox1.TabIndex = 3;
-            
             // 
             // btRun
             // 
@@ -167,7 +162,7 @@
             // lbSource
             // 
             this.lbSource.AutoSize = true;
-            this.lbSource.Location = new System.Drawing.Point(247, 48);
+            this.lbSource.Location = new System.Drawing.Point(101, 48);
             this.lbSource.Name = "lbSource";
             this.lbSource.Size = new System.Drawing.Size(41, 13);
             this.lbSource.TabIndex = 16;
@@ -182,15 +177,6 @@
             this.lbArg1.TabIndex = 17;
             this.lbArg1.Text = "Arg1";
             // 
-            // lbArg2
-            // 
-            this.lbArg2.AutoSize = true;
-            this.lbArg2.Location = new System.Drawing.Point(97, 48);
-            this.lbArg2.Name = "lbArg2";
-            this.lbArg2.Size = new System.Drawing.Size(29, 13);
-            this.lbArg2.TabIndex = 18;
-            this.lbArg2.Text = "Arg2";
-            // 
             // statusGridView
             // 
             this.statusGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -204,7 +190,7 @@
             this.RP0,
             this.RP1,
             this.IRP});
-            this.statusGridView.Location = new System.Drawing.Point(871, 68);
+            this.statusGridView.Location = new System.Drawing.Point(725, 68);
             this.statusGridView.Name = "statusGridView";
             this.statusGridView.Size = new System.Drawing.Size(330, 77);
             this.statusGridView.TabIndex = 19;
@@ -270,7 +256,7 @@
             this.A5,
             this.A6,
             this.A7});
-            this.raGridView1.Location = new System.Drawing.Point(871, 151);
+            this.raGridView1.Location = new System.Drawing.Point(725, 151);
             this.raGridView1.Name = "raGridView1";
             this.raGridView1.Size = new System.Drawing.Size(252, 94);
             this.raGridView1.TabIndex = 20;
@@ -336,7 +322,7 @@
             this.dataGridViewButtonColumn3,
             this.dataGridViewButtonColumn2,
             this.dataGridViewButtonColumn1});
-            this.rbGridView1.Location = new System.Drawing.Point(871, 251);
+            this.rbGridView1.Location = new System.Drawing.Point(725, 251);
             this.rbGridView1.Name = "rbGridView1";
             this.rbGridView1.Size = new System.Drawing.Size(252, 103);
             this.rbGridView1.TabIndex = 21;
@@ -409,23 +395,48 @@
             // 
             this.timerRun.Tick += new System.EventHandler(this.timerRun_Tick);
             // 
+            // registerGridView1
+            // 
+            this.registerGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.registerGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RegNr,
+            this.Data});
+            this.registerGridView1.Location = new System.Drawing.Point(1062, 68);
+            this.registerGridView1.Name = "registerGridView1";
+            this.registerGridView1.Size = new System.Drawing.Size(393, 483);
+            this.registerGridView1.TabIndex = 24;
+            // 
+            // executorBindingSource
+            // 
+            this.executorBindingSource.DataSource = typeof(PicSim.Executor);
+            // 
+            // RegNr
+            // 
+            this.RegNr.HeaderText = "RegNr";
+            this.RegNr.Name = "RegNr";
+            // 
+            // Data
+            // 
+            this.Data.HeaderText = "Data";
+            this.Data.MinimumWidth = 10;
+            this.Data.Name = "Data";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 563);
+            this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.registerGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbFrequency);
             this.Controls.Add(this.rbGridView1);
             this.Controls.Add(this.raGridView1);
             this.Controls.Add(this.statusGridView);
-            this.Controls.Add(this.lbArg2);
             this.Controls.Add(this.lbArg1);
             this.Controls.Add(this.lbSource);
             this.Controls.Add(this.btOneStep);
             this.Controls.Add(this.btRun);
             this.Controls.Add(this.completeListBox1);
-            this.Controls.Add(this.argumentListBox2);
             this.Controls.Add(this.argumentListBox1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
@@ -435,6 +446,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.executorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,13 +461,11 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dokuToolStripMenuItem;
         private System.Windows.Forms.ListBox argumentListBox1;
-        private System.Windows.Forms.ListBox argumentListBox2;
         private System.Windows.Forms.ListBox completeListBox1;
         private System.Windows.Forms.Button btRun;
         private System.Windows.Forms.Button btOneStep;
         private System.Windows.Forms.Label lbSource;
         private System.Windows.Forms.Label lbArg1;
-        private System.Windows.Forms.Label lbArg2;
         public System.Windows.Forms.DataGridView statusGridView;
         public System.Windows.Forms.DataGridView raGridView1;
         public System.Windows.Forms.DataGridView rbGridView1;
@@ -485,6 +496,10 @@
         private System.Windows.Forms.TextBox tbFrequency;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerRun;
+        private System.Windows.Forms.DataGridView registerGridView1;
+        private System.Windows.Forms.BindingSource executorBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RegNr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Data;
     }
 }
 

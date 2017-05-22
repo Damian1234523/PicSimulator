@@ -18,6 +18,7 @@ namespace PicSim
             InitializeComponent();
             raGridView1.Rows.Add();
             rbGridView1.Rows.Add();
+            registerGridView1.Rows.Add(254);
             tbFrequency.Text = "1000";
             completeListBox1.MouseDoubleClick += new MouseEventHandler(completeListBox1_DoubleClick);
 
@@ -172,6 +173,16 @@ namespace PicSim
             {
                 if (b[i] == false) rbGridView1[i, 1].Value = 0;
                 if (b[i] == true) rbGridView1[i, 1].Value = 1;
+            }
+
+            int[] R = executor.GetFullRegister();
+            int ii = 0;
+
+            foreach (int reg in R)
+            {
+                registerGridView1.Rows[ii].Cells[0].Value = ii;
+                registerGridView1.Rows[ii].Cells[1].Value = Convert.ToString(reg, 2);
+                ii++;
             }
         }
 
