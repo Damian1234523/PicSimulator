@@ -81,7 +81,9 @@ namespace PicSim
 
         private void dokuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //Doku abrufen
+            
+            MessageBox.Show("Existiert noch nicht");
         }
 
         private void btOneStep_Click(object sender, EventArgs e)
