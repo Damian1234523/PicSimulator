@@ -62,6 +62,11 @@ namespace PicSim
             return R[0x86];
         }
 
+        public int[] GetFullRegister()
+        {
+            return R;
+        }
+
         public void SetRegisterA(int i)
         {
             int ra = readRegister(0x05);
