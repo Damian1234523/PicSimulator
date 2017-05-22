@@ -371,7 +371,10 @@ namespace PicSim
         private void ADDWF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int erg = readRegister(regaddr) + W;
+            //int erg = readRegister(regaddr) + W;
+            int erg = readRegister(regaddr);
+            DigitalCarryPlus(W, erg);
+            erg = erg + W;
             erg = Cut8(erg, true);
             //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
             ZeroBit(erg);
@@ -582,7 +585,10 @@ namespace PicSim
         private void SUBWF(int arg)
         {
             int regaddr = 0b0111_1111 & arg;
-            int erg = readRegister(regaddr) - W;
+            //int erg = readRegister(regaddr) - W;
+            int erg = readRegister(regaddr);
+            DigitalCarryMinus(W, erg);
+            erg = erg - W;
             erg = Cut8(erg, true);
             if (erg < 0) SetCarryBit(1);
             erg = Math.Abs(erg);
@@ -698,6 +704,7 @@ namespace PicSim
         private void ADDLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
+            DigitalCarryPlus(W, erg);
             W = Cut8(W + erg, true);
             ZeroBit(W);
             IncTimer(1);
@@ -745,6 +752,7 @@ namespace PicSim
         private void SUBLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
+            DigitalCarryMinus(W, erg);
             W = Cut8(W - erg, true);
             if (W < 0) SetCarryBit(1);
             W = Math.Abs(W);
@@ -780,9 +788,45 @@ namespace PicSim
         }
         //=================================================================================================
 
+
+        void DigitalCarryPlus(int ww, int i)
+        {
+            int reg = readRegister(0x03);
+            ww = ww & 0b1111;
+            i = i & 0b1111;
+
+            if (ww + i > 15)
+            {
+                reg |= 1 << 1;
+            }
+            else
+            {
+                reg &= ~(1 << 1);
+            }
+            writeRegister(0x03, reg);
+
+        }
+
+        void DigitalCarryMinus(int ww, int i)
+        {
+            int reg = readRegister(0x03);
+            ww = ww & 0b1111;
+            i = i & 0b1111;
+
+            if (ww > i)
+            {
+                reg &= ~(1 << 1);
+            }
+            else
+            {
+                reg |= 1 << 1;
+            }
+            writeRegister(0x03, reg);
+        }
+
         void IncTimer(int i)
         {
-            ignoreBank = true;
+            
             int timer = R[1];//readRegister(0x01);
             //ignoreBank = true;
             int optionsRegister = R[0x81];//readRegister(0x81);
