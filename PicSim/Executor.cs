@@ -26,6 +26,24 @@ namespace PicSim
             Stack = new DropOutStack<int>(8);
             prescaler = 0;
             ignoreBank = false;
+            writeRegister(0x3, 24);
+            R[0x81] = 0b1111_1111;
+            R[0x85] = 0b1_1111;
+            R[0x86] = 0b1111_1111;
+        }
+
+        internal void Reset()
+        {
+            pc = 0;
+            W = 0;
+            R = new int[255];
+            Stack = new DropOutStack<int>(8);
+            prescaler = 0;
+            ignoreBank = false;
+            writeRegister(0x3, 24);
+            R[0x81] = 0b1111_1111;
+            R[0x85] = 0b1_1111;
+            R[0x86] = 0b1111_1111;
         }
 
         public void SetIntArg(int i)
@@ -351,6 +369,8 @@ namespace PicSim
             Console.WriteLine(W);
             Console.WriteLine(W.ToString("X2"));
         }
+
+        
 
         private void CLRW()
         {

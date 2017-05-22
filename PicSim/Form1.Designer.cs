@@ -71,9 +71,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerRun = new System.Windows.Forms.Timer(this.components);
             this.registerGridView1 = new System.Windows.Forms.DataGridView();
-            this.executorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.RegNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.executorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btReset = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -406,10 +407,6 @@
             this.registerGridView1.Size = new System.Drawing.Size(393, 483);
             this.registerGridView1.TabIndex = 24;
             // 
-            // executorBindingSource
-            // 
-            this.executorBindingSource.DataSource = typeof(PicSim.Executor);
-            // 
             // RegNr
             // 
             this.RegNr.HeaderText = "RegNr";
@@ -421,11 +418,26 @@
             this.Data.MinimumWidth = 10;
             this.Data.Name = "Data";
             // 
+            // executorBindingSource
+            // 
+            this.executorBindingSource.DataSource = typeof(PicSim.Executor);
+            // 
+            // btReset
+            // 
+            this.btReset.Location = new System.Drawing.Point(834, 27);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(75, 23);
+            this.btReset.TabIndex = 25;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.registerGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbFrequency);
@@ -500,6 +512,7 @@
         private System.Windows.Forms.BindingSource executorBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegNr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Data;
+        private System.Windows.Forms.Button btReset;
     }
 }
 
