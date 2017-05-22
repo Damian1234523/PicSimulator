@@ -15,9 +15,8 @@ namespace PicSim
         private int intArg;
         private bool ignoreBank;
 
-        private int prescaler; 
+        private int prescaler;
         
-        //TODO: anderen notwendigen schlonz implementieren
 
         public Executor()
         {
@@ -70,27 +69,42 @@ namespace PicSim
             {
                 //zu 0 machen
                 ra &= ~(1 << i);
+                
             }
             else
             {
                 // zu 1 machen
                 ra |= 1 << i;
+                
             }
             R[0x05] = ra;
         }
 
         public void SetRegisterB(int i)
         {
+            int intcon = readRegister(0x0b);
+            int optionsReg = readRegister(0x81);
+            optionsReg = optionsReg & 0b0100_0000;
             int rb = readRegister(0x06);
             if (IsBitSet(rb, i))
             {
                 //zu 0 machen
                 rb &= ~(1 << i);
+                if (optionsReg == 0)
+                {
+                    intcon |= 1 << 1;
+                    writeRegister(0x0b, intcon);
+                }
             }
             else
             {
                 // zu 1 machen
                 rb |= 1 << i;
+                if (optionsReg == 0b0100_0000)
+                {
+                    intcon |= 1 << 1;
+                    writeRegister(0x0b, intcon);
+                }
             }
             R[0x06] = rb;
         }
