@@ -54,6 +54,8 @@ namespace PicSim
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                executor.Reset();
+                sourceManager.ResetSource();
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName);
                 List<string> rows = new List<string>();
@@ -61,7 +63,7 @@ namespace PicSim
                 {
                     rows.Add(sr.ReadLine());
                 }
-                sourceManager.ResetSource();
+                
                 sourceManager.FillSource(rows);
                 sr.Close();
                 executor.SetIntArg(sourceManager.GetSingleArg1(4));
@@ -291,6 +293,11 @@ namespace PicSim
                 }
                 printInfo();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            executor.Reset();
         }
     }
 }

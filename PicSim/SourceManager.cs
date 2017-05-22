@@ -54,6 +54,7 @@ namespace PicSim
         {
             sourceComplete.Clear();
             args1.Clear();
+            highlightIndex.Clear();
         }
     }
 }
