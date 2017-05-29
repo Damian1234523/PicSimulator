@@ -13,7 +13,7 @@ namespace PicSim
         
         public RS232()
         {
-            ComPort = new SerialPort("COM3", 4800);
+            ComPort = new SerialPort("COM1", 4800);
             ComPort.Open();
         }
 
