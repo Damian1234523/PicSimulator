@@ -16,6 +16,8 @@ namespace PicSim
         private bool ignoreBank;
 
         private int prescaler;
+
+        RS232 rs232 = new RS232();
         
 
         public Executor()
@@ -151,6 +153,7 @@ namespace PicSim
         {
             try
             {
+                rs232.Write(GetRegisterA(), GetRegisterB(), GetTrisA(), GetTrisB());
                 // Interrupt prüfung--------------------------
                 int INTCON = readRegister(0x0b);
                 if ((INTCON & 0b1000_0000) == 0b1000_0000)//Global interrupt bit
