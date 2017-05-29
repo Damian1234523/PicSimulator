@@ -45,12 +45,19 @@ namespace PicSim
 
             Char[] daten = new char[8];
 
-            daten[0] = (char)splitLower(trisA);
+            daten[0] = (char)trisAhigh;
+            daten[1] = (char)trisAlow;
+            daten[2] = (char)portAhigh;
+            daten[3] = (char)portAlow;
+            daten[4] = (char)trisBhigh;
+            daten[5] = (char)trisBlow;
+            daten[6] = (char)portAhigh;
+            daten[7] = (char)portBlow;
 
-            ComPort.WriteLine(new string(daten));
+           ComPort.WriteLine(new string(daten));
 
 
-            ComPort.WriteLine(data);
+            //ComPort.WriteLine(data);
         }
 
         private int splitUpper(int u)
