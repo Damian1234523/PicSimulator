@@ -78,6 +78,8 @@
             this.stackGridView1 = new System.Windows.Forms.DataGridView();
             this.StackNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StackContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbExtClock = new System.Windows.Forms.TextBox();
+            this.lbExternalClock = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -457,11 +459,31 @@
             this.StackContent.HeaderText = "StackContent";
             this.StackContent.Name = "StackContent";
             // 
+            // tbExtClock
+            // 
+            this.tbExtClock.Location = new System.Drawing.Point(1191, 29);
+            this.tbExtClock.Name = "tbExtClock";
+            this.tbExtClock.Size = new System.Drawing.Size(72, 20);
+            this.tbExtClock.TabIndex = 27;
+            this.tbExtClock.Text = "10";
+            // 
+            // lbExternalClock
+            // 
+            this.lbExternalClock.AutoSize = true;
+            this.lbExternalClock.Location = new System.Drawing.Point(1269, 34);
+            this.lbExternalClock.Name = "lbExternalClock";
+            this.lbExternalClock.Size = new System.Drawing.Size(102, 13);
+            this.lbExternalClock.TabIndex = 28;
+            this.lbExternalClock.Text = "External Clock in ms";
+            this.lbExternalClock.Click += new System.EventHandler(this.lbExternalTimer_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.lbExternalClock);
+            this.Controls.Add(this.tbExtClock);
             this.Controls.Add(this.stackGridView1);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.registerGridView1);
@@ -543,6 +565,8 @@
         private System.Windows.Forms.DataGridView stackGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn StackNr;
         private System.Windows.Forms.DataGridViewTextBoxColumn StackContent;
+        private System.Windows.Forms.TextBox tbExtClock;
+        private System.Windows.Forms.Label lbExternalClock;
     }
 }
 

@@ -315,5 +315,10 @@ namespace PicSim
             executor.Reset();
             printInfo();
         }
+
+        private void lbExternalTimer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
