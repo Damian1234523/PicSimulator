@@ -80,6 +80,7 @@
             this.StackContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbExtClock = new System.Windows.Forms.TextBox();
             this.lbExternalClock = new System.Windows.Forms.Label();
+            this.timerExtClock = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -475,7 +476,10 @@
             this.lbExternalClock.Size = new System.Drawing.Size(102, 13);
             this.lbExternalClock.TabIndex = 28;
             this.lbExternalClock.Text = "External Clock in ms";
-            this.lbExternalClock.Click += new System.EventHandler(this.lbExternalTimer_Click);
+            // 
+            // timerExtClock
+            // 
+            this.timerExtClock.Tick += new System.EventHandler(this.timerExtClock_Tick);
             // 
             // Form1
             // 
@@ -567,6 +571,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StackContent;
         private System.Windows.Forms.TextBox tbExtClock;
         private System.Windows.Forms.Label lbExternalClock;
+        private System.Windows.Forms.Timer timerExtClock;
     }
 }
 

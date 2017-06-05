@@ -88,9 +88,10 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-            
+            timerExtClock.Enabled = true;
             step();
-            
+            timerExtClock.Enabled = false;
+
         }
 
         private void btRun_Click(object sender, EventArgs e)
@@ -107,11 +108,16 @@ namespace PicSim
                 timerRun.Interval = (int)frequency;
                 timerRun.Enabled = true;
 
+                int externalClock = int.Parse(tbExtClock.Text);
+                timerExtClock.Interval = externalClock;
+                timerExtClock.Enabled = true;
+
                 btRun.Text = "Halt stop!";
             }
             else
             {
                 timerRun.Enabled = false;
+                timerExtClock.Enabled = false;
                 btRun.Text = "Run";
             }
         }
@@ -222,7 +228,9 @@ namespace PicSim
 
         private void step()
         {
+            
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
+            
             printInfo();
             argumentListBox1.SelectedIndex = executor.GetPc();
             completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
@@ -316,9 +324,9 @@ namespace PicSim
             printInfo();
         }
 
-        private void lbExternalTimer_Click(object sender, EventArgs e)
+        private void timerExtClock_Tick(object sender, EventArgs e)
         {
-
+            executor.SetRegisterA(4);
         }
     }
 }
