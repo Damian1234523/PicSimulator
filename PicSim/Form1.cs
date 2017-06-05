@@ -300,6 +300,7 @@ namespace PicSim
         private void button1_Click(object sender, EventArgs e)
         {
             executor.Reset();
+            printInfo();
         }
     }
 }

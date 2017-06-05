@@ -46,6 +46,11 @@ namespace PicSim
             R[0x86] = 0b1111_1111;
         }
 
+        public int[] GetStack()
+        {
+            return Stack.ReadStack();
+        }
+
         public void SetIntArg(int i)
         {
             intArg = i;
@@ -366,11 +371,10 @@ namespace PicSim
                 System.Threading.Thread.Sleep(10);
             }
             pc++; //pc in register implementieren?
+            //Console.WriteLine("Stack: " + Stack.ReadStack());
             Console.WriteLine(W);
             Console.WriteLine(W.ToString("X2"));
         }
-
-        
 
         private void CLRW()
         {
@@ -1057,6 +1061,14 @@ namespace PicSim
         {
             top = (items.Length + top - 1) % items.Length;
             return items[top];
+        }
+        public T[] ReadStack()
+        {
+            T[] result = new T[items.Length];
+            if (top == 0) return result;
+            Array.Copy(items, 0, result, 0, top - 1);
+            
+            return result;
         }
     }
 
