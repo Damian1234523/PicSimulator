@@ -874,7 +874,13 @@ namespace PicSim
             int optionsRegister = R[0x81];//readRegister(0x81);
             if ((optionsRegister & 0b10_0000) == 0b10_0000)
             {
-                //Extrener Timer
+                int regA = GetRegisterA();
+                if ((regA & 0b1_0000) == 0b1_0000)
+                {
+                    //Console.WriteLine("ExtClock");
+                    SetRegisterA(4);
+
+                }
             }
             else
             {

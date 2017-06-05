@@ -466,7 +466,7 @@
             this.tbExtClock.Name = "tbExtClock";
             this.tbExtClock.Size = new System.Drawing.Size(72, 20);
             this.tbExtClock.TabIndex = 27;
-            this.tbExtClock.Text = "10";
+            this.tbExtClock.Text = "100";
             // 
             // lbExternalClock
             // 

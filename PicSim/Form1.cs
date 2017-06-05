@@ -326,7 +326,14 @@ namespace PicSim
 
         private void timerExtClock_Tick(object sender, EventArgs e)
         {
-            executor.SetRegisterA(4);
+            //executor.SetRegisterA(4);
+
+            int regA = executor.GetRegisterA();
+            if ((regA & 0b1_0000) != 0b1_0000)
+            {
+                //Console.WriteLine("ExtClock");
+                executor.SetRegisterA(4);
+            }
         }
     }
 }
