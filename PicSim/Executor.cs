@@ -880,6 +880,30 @@ namespace PicSim
                     //Console.WriteLine("ExtClock");
                     SetRegisterA(4);
 
+                    //===================
+
+                    if ((optionsRegister & 0b1000) == 0b1000)
+                    {
+                        //Nutzung timer ohne Prescaler
+                        timer = timer + i;//writeRegister(0x01, timer + i);
+                    }
+                    else
+                    {
+                        //Nutzung timer mit Prescaler
+                        int prescalerTyp = optionsRegister & 0b111;
+                        double maxSize = Math.Pow(2.0, prescalerTyp + 1);
+
+                        prescaler = prescaler + i;
+                        if (prescaler >= maxSize)
+                        {
+                            //ignoreBank = true;
+                            //writeRegister(0x01, timer + 1);
+                            timer++;
+                            prescaler = prescaler - (int)maxSize;
+                        }
+                    }
+
+                    //================
                 }
             }
             else
