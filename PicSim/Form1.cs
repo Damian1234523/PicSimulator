@@ -188,6 +188,19 @@ namespace PicSim
                 registerGridView1.Rows[ii].Cells[1].Value = Convert.ToString(reg, 2);
                 ii++;
             }
+
+            int[] stack = executor.GetStack();
+            stackGridView1.Rows.Clear();
+            stackGridView1.Refresh();
+            ii = 0;
+
+            foreach (int item in stack)
+            {
+                stackGridView1.Rows.Add();
+                stackGridView1.Rows[ii].Cells[0].Value = ii;
+                stackGridView1.Rows[ii].Cells[1].Value = Convert.ToString(item, 16);
+                ii++;
+            }
         }
 
         private void timerRun_Tick(object sender, EventArgs e)

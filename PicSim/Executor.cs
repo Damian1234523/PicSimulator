@@ -1065,8 +1065,10 @@ namespace PicSim
         public T[] ReadStack()
         {
             T[] result = new T[items.Length];
-            if (top == 0) return result;
-            Array.Copy(items, 0, result, 0, top - 1);
+            if (top == 0) {
+                return result;
+            }
+            Array.Copy(items, 0, result, 0, top);
             
             return result;
         }

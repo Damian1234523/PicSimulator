@@ -75,7 +75,7 @@
             this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.executorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btReset = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.stackGridView1 = new System.Windows.Forms.DataGridView();
             this.StackNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StackContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
@@ -84,7 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.registerGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.executorBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stackGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -436,16 +436,16 @@
             this.btReset.UseVisualStyleBackColor = true;
             this.btReset.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridView1
+            // stackGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.stackGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stackGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StackNr,
             this.StackContent});
-            this.dataGridView1.Location = new System.Drawing.Point(726, 361);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(251, 150);
-            this.dataGridView1.TabIndex = 26;
+            this.stackGridView1.Location = new System.Drawing.Point(726, 361);
+            this.stackGridView1.Name = "stackGridView1";
+            this.stackGridView1.Size = new System.Drawing.Size(251, 192);
+            this.stackGridView1.TabIndex = 26;
             // 
             // StackNr
             // 
@@ -462,7 +462,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.stackGridView1);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.registerGridView1);
             this.Controls.Add(this.label1);
@@ -486,7 +486,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rbGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.registerGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.executorBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stackGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,7 +540,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RegNr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Data;
         private System.Windows.Forms.Button btReset;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView stackGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn StackNr;
         private System.Windows.Forms.DataGridViewTextBoxColumn StackContent;
     }
