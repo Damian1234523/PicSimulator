@@ -335,5 +335,10 @@ namespace PicSim
                 executor.SetRegisterA(4);
             }
         }
+
+        private void btRS232_Click(object sender, EventArgs e)
+        {
+            executor.RS232();
+        }
     }
 }

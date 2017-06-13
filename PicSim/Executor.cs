@@ -372,10 +372,15 @@ namespace PicSim
                 System.Threading.Thread.Sleep(10);
             }
             pc++; //TODO: pc in register implementieren!
-            serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
+            //serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
             //Console.WriteLine("Stack: " + Stack.ReadStack());
             Console.WriteLine(W);
             Console.WriteLine(W.ToString("X2"));
+        }
+
+        internal void RS232()
+        {
+            serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
         }
 
         private void CLRW()

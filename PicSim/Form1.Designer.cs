@@ -81,6 +81,7 @@
             this.tbExtClock = new System.Windows.Forms.TextBox();
             this.lbExternalClock = new System.Windows.Forms.Label();
             this.timerExtClock = new System.Windows.Forms.Timer(this.components);
+            this.btRS232 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -481,11 +482,22 @@
             // 
             this.timerExtClock.Tick += new System.EventHandler(this.timerExtClock_Tick);
             // 
+            // btRS232
+            // 
+            this.btRS232.Location = new System.Drawing.Point(753, 27);
+            this.btRS232.Name = "btRS232";
+            this.btRS232.Size = new System.Drawing.Size(75, 23);
+            this.btRS232.TabIndex = 29;
+            this.btRS232.Text = "RS232";
+            this.btRS232.UseVisualStyleBackColor = true;
+            this.btRS232.Click += new System.EventHandler(this.btRS232_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.btRS232);
             this.Controls.Add(this.lbExternalClock);
             this.Controls.Add(this.tbExtClock);
             this.Controls.Add(this.stackGridView1);
@@ -572,6 +584,7 @@
         private System.Windows.Forms.TextBox tbExtClock;
         private System.Windows.Forms.Label lbExternalClock;
         private System.Windows.Forms.Timer timerExtClock;
+        private System.Windows.Forms.Button btRS232;
     }
 }
 
