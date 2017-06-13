@@ -18,19 +18,26 @@ namespace PicSim
         }
         private SerialPort _serialPort;
 
+        private int portA, portB, trisA, trisB;
+
         private void SaveReceivedData(string data)
         {
             char[] buffer = data.ToCharArray();
             int value = (buffer[0] - 0x30) << 4;
             value += buffer[1] - 0x30;
-            Speicher.setPortA((byte)value);
+            //Speicher.setPortA((byte)value); //TODO:umbiegen
             value = (buffer[2] - 0x30) << 4;
             value += buffer[3] - 0x30;
-            Speicher.setPortB((byte)value);
+            //Speicher.setPortB((byte)value);
         }
 
-        public void SendData()
+        public void SendData(int pA, int pB, int tA, int tB)
         {
+            portA = pA;
+            portB = pB;
+            trisA = tA;
+            trisB = tB;
+
             if (!_serialPort.IsOpen) return;
 
             _serialPort.Write(CreateWriteProtokoll(), 0, 9);
@@ -57,20 +64,20 @@ namespace PicSim
         {
             var buffer = new byte[9];
 
-            int trisA = Speicher.get(Speicher.PortA + 0x80);
+            //int trisA = Speicher.get(Speicher.PortA + 0x80);
             buffer[0] = PrepareHigherByteForTransfer(trisA);
             buffer[1] = PrepareLowerByteForTransfer(trisA);
 
-            int portA = Speicher.get(Speicher.PortA);
+            //int portA = Speicher.get(Speicher.PortA);
             buffer[2] = PrepareHigherByteForTransfer(portA);
             buffer[3] = PrepareLowerByteForTransfer(portA);
 
 
-            int trisB = Speicher.get(Speicher.PortB + 0x80);
+            //int trisB = Speicher.get(Speicher.PortB + 0x80);
             buffer[4] = PrepareHigherByteForTransfer(trisB);
             buffer[5] = PrepareLowerByteForTransfer(trisB);
 
-            int portB = Speicher.get(Speicher.PortB);
+            //int portB = Speicher.get(Speicher.PortB);
             buffer[6] = PrepareHigherByteForTransfer(portB);
             buffer[7] = PrepareLowerByteForTransfer(portB);
 

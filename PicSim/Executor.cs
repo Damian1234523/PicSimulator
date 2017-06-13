@@ -16,7 +16,8 @@ namespace PicSim
         private bool ignoreBank;
 
         private int prescaler;
-        
+
+        SerialConnection serialConnection = new SerialConnection();
 
         public Executor()
         {
@@ -370,7 +371,8 @@ namespace PicSim
                 Console.WriteLine("NOP");
                 System.Threading.Thread.Sleep(10);
             }
-            pc++; //pc in register implementieren?
+            pc++; //TODO: pc in register implementieren!
+            serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
             //Console.WriteLine("Stack: " + Stack.ReadStack());
             Console.WriteLine(W);
             Console.WriteLine(W.ToString("X2"));
