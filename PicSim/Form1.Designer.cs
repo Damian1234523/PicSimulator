@@ -82,6 +82,10 @@
             this.lbExternalClock = new System.Windows.Forms.Label();
             this.timerExtClock = new System.Windows.Forms.Timer(this.components);
             this.btRS232 = new System.Windows.Forms.Button();
+            this.tbQuartzFrequenz = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbLaufzeit = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -492,11 +496,48 @@
             this.btRS232.UseVisualStyleBackColor = true;
             this.btRS232.Click += new System.EventHandler(this.btRS232_Click);
             // 
+            // tbQuartzFrequenz
+            // 
+            this.tbQuartzFrequenz.Location = new System.Drawing.Point(647, 29);
+            this.tbQuartzFrequenz.Name = "tbQuartzFrequenz";
+            this.tbQuartzFrequenz.Size = new System.Drawing.Size(100, 20);
+            this.tbQuartzFrequenz.TabIndex = 30;
+            this.tbQuartzFrequenz.Text = "4000";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(524, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 13);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "Quartzfrequenz in kHz";
+            // 
+            // tbLaufzeit
+            // 
+            this.tbLaufzeit.Location = new System.Drawing.Point(418, 27);
+            this.tbLaufzeit.Name = "tbLaufzeit";
+            this.tbLaufzeit.Size = new System.Drawing.Size(100, 20);
+            this.tbLaufzeit.TabIndex = 32;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(329, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "Laufzeit in µSec";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbLaufzeit);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbQuartzFrequenz);
             this.Controls.Add(this.btRS232);
             this.Controls.Add(this.lbExternalClock);
             this.Controls.Add(this.tbExtClock);
@@ -585,6 +626,10 @@
         private System.Windows.Forms.Label lbExternalClock;
         private System.Windows.Forms.Timer timerExtClock;
         private System.Windows.Forms.Button btRS232;
+        private System.Windows.Forms.TextBox tbQuartzFrequenz;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbLaufzeit;
+        private System.Windows.Forms.Label label3;
     }
 }
 

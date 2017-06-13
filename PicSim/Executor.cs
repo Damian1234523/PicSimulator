@@ -17,6 +17,8 @@ namespace PicSim
 
         private int prescaler;
 
+        private int laufzeitzähler;
+
         SerialConnection serialConnection = new SerialConnection();
 
         public Executor()
@@ -31,6 +33,7 @@ namespace PicSim
             R[0x81] = 0b1111_1111;
             R[0x85] = 0b1_1111;
             R[0x86] = 0b1111_1111;
+            laufzeitzähler = 0;
         }
 
         internal void Reset()
@@ -45,8 +48,13 @@ namespace PicSim
             R[0x81] = 0b1111_1111;
             R[0x85] = 0b1_1111;
             R[0x86] = 0b1111_1111;
+            laufzeitzähler = 0;
         }
 
+        public int GetLaufzeitzähler()
+        {
+            return laufzeitzähler;
+        }
         public int[] GetStack()
         {
             return Stack.ReadStack();
@@ -877,7 +885,9 @@ namespace PicSim
 
         void IncTimer(int i)
         {
-            
+
+            laufzeitzähler += i;
+
             int timer = R[1];//readRegister(0x01);
             //ignoreBank = true;
             int optionsRegister = R[0x81];//readRegister(0x81);

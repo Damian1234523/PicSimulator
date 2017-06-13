@@ -234,6 +234,8 @@ namespace PicSim
             printInfo();
             argumentListBox1.SelectedIndex = executor.GetPc();
             completeListBox1.SelectedIndex = sourceManager.getIndexInCode(executor.GetPc());
+
+            tbLaufzeit.Text = ((4000.0 / double.Parse(tbQuartzFrequenz.Text)) * System.Convert.ToDouble(executor.GetLaufzeitzähler())).ToString();
             
         }
 
