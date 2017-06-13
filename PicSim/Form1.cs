@@ -339,6 +339,7 @@ namespace PicSim
         private void btRS232_Click(object sender, EventArgs e)
         {
             executor.RS232();
+            printInfo();
         }
     }
 }

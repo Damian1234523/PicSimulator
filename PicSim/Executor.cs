@@ -381,6 +381,8 @@ namespace PicSim
         internal void RS232()
         {
             serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
+            R[0x05] = serialConnection.portA;
+            R[0x06] = serialConnection.portB;
         }
 
         private void CLRW()
