@@ -251,7 +251,14 @@ namespace PicSim
 
                 if (lastExtTimer < (laufzeit/extTimerIntervall))
                 {
+                    Console.WriteLine("ExtTimer");
                     lastExtTimer = (laufzeit/extTimerIntervall);
+                    int regA = executor.GetRegisterA();
+                    if ((regA & 0b1_0000) != 0b1_0000)
+                    {
+                        
+                        executor.SetRegisterA(4);
+                    }
                 }
             }
 
