@@ -471,6 +471,7 @@ namespace PicSim
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
             erg--;
+            erg = Cut8(erg, false);
             ZeroBit(erg);
             
             if ((0b1000_0000 & arg) == 128)
@@ -649,8 +650,14 @@ namespace PicSim
             int erg = readRegister(regaddr);
             DigitalCarryMinus(W, erg);
             erg = erg - W;
-            erg = Cut8(erg, true);
-            if (erg < 0) SetCarryBit(1);
+            erg = Cut8(erg, false);
+            if (erg < 0) {
+                SetCarryBit(1);
+            }
+            else
+            {
+                SetCarryBit(0);
+            }
             erg = Math.Abs(erg);
             //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
             ZeroBit(erg);
