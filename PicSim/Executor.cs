@@ -51,6 +51,10 @@ namespace PicSim
             laufzeitzähler = 0;
         }
 
+        public int GetW()
+        {
+            return W;
+        }
         public int GetLaufzeitzähler()
         {
             return laufzeitzähler;

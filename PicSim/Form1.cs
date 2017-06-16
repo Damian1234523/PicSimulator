@@ -140,6 +140,10 @@ namespace PicSim
 
         void printInfo()
         {
+            tbWRegister.Text = executor.GetW().ToString("X2");
+
+            tbPC.Text = executor.GetPc().ToString();
+
             int s = executor.GetStatus();
             
             System.Collections.BitArray b = new System.Collections.BitArray(new int[] { s });
