@@ -89,9 +89,9 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-            timerExtClock.Enabled = true;
+            //timerExtClock.Enabled = true;
             step();
-            timerExtClock.Enabled = false;
+            //timerExtClock.Enabled = false;
 
         }
 
@@ -110,15 +110,15 @@ namespace PicSim
                 timerRun.Enabled = true;
 
                 int externalClock = int.Parse(tbExtClock.Text);
-                timerExtClock.Interval = externalClock;
-                timerExtClock.Enabled = true;
+                //timerExtClock.Interval = externalClock;
+                //timerExtClock.Enabled = true;
 
                 btRun.Text = "Halt stop!";
             }
             else
             {
                 timerRun.Enabled = false;
-                timerExtClock.Enabled = false;
+                //timerExtClock.Enabled = false;
                 btRun.Text = "Run";
             }
         }
@@ -234,6 +234,15 @@ namespace PicSim
         private void step()
         {
             
+            //ExtTimer==========
+
+            if ((executor.GetTrisA() & 0b1_0000) == 0b1_0000)
+            {
+
+            }
+
+            //==================
+
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
             
             printInfo();
@@ -242,6 +251,7 @@ namespace PicSim
 
             tbLaufzeit.Text = ((4000.0 / double.Parse(tbQuartzFrequenz.Text)) * System.Convert.ToDouble(executor.GetLaufzeitzähler())).ToString();
             
+
         }
 
         private void completeListBox1_DoubleClick(object sender, MouseEventArgs e)
