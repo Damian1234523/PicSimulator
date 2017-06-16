@@ -190,7 +190,7 @@ namespace PicSim
 
             foreach (int reg in R)
             {
-                registerGridView1.Rows[ii].Cells[0].Value = ii;
+                registerGridView1.Rows[ii].Cells[0].Value = ii + " " + ii.ToString("X2");
                 registerGridView1.Rows[ii].Cells[1].Value = Convert.ToString(reg, 2) + " " + reg.ToString("X2");
                 ii++;
             }

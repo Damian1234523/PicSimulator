@@ -532,7 +532,8 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
-            erg--;
+            erg++;
+            if (erg > 255) erg = 0;
 
             if ((0b1000_0000 & arg) == 128)
             {
@@ -1009,6 +1010,15 @@ namespace PicSim
                 {
                     R[addr + 128] = value;
                 }
+            }
+            if (addr == 0)
+            {
+                int fsr = readRegister(0x04);
+                if (fsr == 0)
+                {
+                    throw new FSRZero();
+                }
+                else { R[fsr] = value; }
             }
         }
 
