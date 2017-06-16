@@ -434,8 +434,16 @@ namespace PicSim
             //int erg = readRegister(regaddr) + W;
             int erg = readRegister(regaddr);
             DigitalCarryPlus(W, erg);
+            if((erg + W) > 255)
+            {
+                SetCarryBit(1);
+            }
+            else
+            {
+                SetCarryBit(0);
+            }
             erg = erg + W;
-            erg = Cut8(erg, true);
+            erg = Cut8(erg, false);
             //Cut4(erg) TODO: der schlonz muss n och anders impelmentiert werden
             ZeroBit(erg);
             if ((0b1000_0000 & arg) == 128)
@@ -516,6 +524,7 @@ namespace PicSim
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
             erg++;
+            if (erg > 255) erg = 0;
             ZeroBit(erg);
             if ((0b1000_0000 & arg) == 128)
             {
