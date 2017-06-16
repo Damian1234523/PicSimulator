@@ -380,6 +380,7 @@ namespace PicSim
                 System.Threading.Thread.Sleep(10);
             }
             pc++; //TODO: pc in register implementieren!
+            writeRegister(0x2, pc);
             //serialConnection.SendData(R[0x05], R[0x06], R[0x85], R[0x86]);
             //Console.WriteLine("Stack: " + Stack.ReadStack());
             Console.WriteLine(W);
@@ -811,10 +812,11 @@ namespace PicSim
         private void SUBLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
+            if ((W - erg) < 0) SetCarryBit(1);
             DigitalCarryMinus(W, erg);
-            W = Cut8(W - erg, true);
-            if (W < 0) SetCarryBit(1);
-            W = Math.Abs(W);
+            W = Math.Abs(W - erg);
+            W = Cut8(W, true);
+            
             ZeroBit(W);
             IncTimer(1);
         }
