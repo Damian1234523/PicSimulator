@@ -82,8 +82,9 @@ namespace PicSim
         private void dokuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Doku abrufen
-            
-            MessageBox.Show("Existiert noch nicht");
+            System.Diagnostics.Process.Start("https://github.com/Damian1234523/PicSimulator/blob/master/PicSim/Doc/Doku.pdf");
+
+
         }
 
         private void btOneStep_Click(object sender, EventArgs e)
