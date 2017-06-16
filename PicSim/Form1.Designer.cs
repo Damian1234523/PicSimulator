@@ -482,9 +482,9 @@
             this.lbExternalClock.AutoSize = true;
             this.lbExternalClock.Location = new System.Drawing.Point(1269, 34);
             this.lbExternalClock.Name = "lbExternalClock";
-            this.lbExternalClock.Size = new System.Drawing.Size(102, 13);
+            this.lbExternalClock.Size = new System.Drawing.Size(114, 13);
             this.lbExternalClock.TabIndex = 28;
-            this.lbExternalClock.Text = "External Clock in ms";
+            this.lbExternalClock.Text = "External Clock in µSec";
             // 
             // timerExtClock
             // 

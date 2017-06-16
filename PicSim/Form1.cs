@@ -28,9 +28,13 @@ namespace PicSim
 
             raGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(raGridView1_listener);
             rbGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(rbGridView1_listener);
+
+            lastExtTimer = 0;
+
+            tbLaufzeit.Text = "0";
         }
 
-        
+        int extTimerIntervall, lastExtTimer;
 
         Timer rTimer = new Timer();
         List<bool> breakpoints = new List<bool>();
@@ -89,6 +93,7 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
+            extTimerIntervall = int.Parse(tbExtClock.Text);
             //timerExtClock.Enabled = true;
             step();
             //timerExtClock.Enabled = false;
@@ -112,6 +117,8 @@ namespace PicSim
                 int externalClock = int.Parse(tbExtClock.Text);
                 //timerExtClock.Interval = externalClock;
                 //timerExtClock.Enabled = true;
+
+                extTimerIntervall = int.Parse(tbExtClock.Text);
 
                 btRun.Text = "Halt stop!";
             }
@@ -239,6 +246,13 @@ namespace PicSim
             if ((executor.GetTrisA() & 0b1_0000) == 0b1_0000)
             {
 
+                int laufzeit = int.Parse(tbLaufzeit.Text);
+                //laufzeit = laufzeit / 1000;
+
+                if (lastExtTimer < (laufzeit/extTimerIntervall))
+                {
+                    lastExtTimer = (laufzeit/extTimerIntervall);
+                }
             }
 
             //==================
@@ -338,6 +352,8 @@ namespace PicSim
         private void button1_Click(object sender, EventArgs e)
         {
             executor.Reset();
+            lastExtTimer = 0;
+            tbLaufzeit.Text = "0";
             printInfo();
         }
 
