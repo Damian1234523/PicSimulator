@@ -28,9 +28,13 @@ namespace PicSim
 
             raGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(raGridView1_listener);
             rbGridView1.CellMouseDown += new DataGridViewCellMouseEventHandler(rbGridView1_listener);
+
+            lastExtTimer = 0;
+
+            tbLaufzeit.Text = "0";
         }
 
-        
+        int extTimerIntervall, lastExtTimer;
 
         Timer rTimer = new Timer();
         List<bool> breakpoints = new List<bool>();
@@ -89,9 +93,10 @@ namespace PicSim
 
         private void btOneStep_Click(object sender, EventArgs e)
         {
-            timerExtClock.Enabled = true;
+            extTimerIntervall = int.Parse(tbExtClock.Text);
+            //timerExtClock.Enabled = true;
             step();
-            timerExtClock.Enabled = false;
+            //timerExtClock.Enabled = false;
 
         }
 
@@ -110,15 +115,17 @@ namespace PicSim
                 timerRun.Enabled = true;
 
                 int externalClock = int.Parse(tbExtClock.Text);
-                timerExtClock.Interval = externalClock;
-                timerExtClock.Enabled = true;
+                //timerExtClock.Interval = externalClock;
+                //timerExtClock.Enabled = true;
+
+                extTimerIntervall = int.Parse(tbExtClock.Text);
 
                 btRun.Text = "Halt stop!";
             }
             else
             {
                 timerRun.Enabled = false;
-                timerExtClock.Enabled = false;
+                //timerExtClock.Enabled = false;
                 btRun.Text = "Run";
             }
         }
@@ -233,7 +240,31 @@ namespace PicSim
 
         private void step()
         {
-            
+
+            //ExtTimer==========
+            if (checkBBoxExtTimer.Checked)
+            {
+                if ((executor.GetTrisA() & 0b1_0000) == 0b1_0000)
+                {
+
+                    int laufzeit = int.Parse(tbLaufzeit.Text);
+                    //laufzeit = laufzeit / 1000;
+
+                    if (lastExtTimer < (laufzeit / extTimerIntervall))
+                    {
+                        Console.WriteLine("ExtTimer");
+                        lastExtTimer = (laufzeit / extTimerIntervall);
+                        int regA = executor.GetRegisterA();
+                        if ((regA & 0b1_0000) != 0b1_0000)
+                        {
+
+                            executor.SetRegisterA(4);
+                        }
+                    }
+                }
+            }
+            //==================
+
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));
             
             printInfo();
@@ -242,6 +273,7 @@ namespace PicSim
 
             tbLaufzeit.Text = ((4000.0 / double.Parse(tbQuartzFrequenz.Text)) * System.Convert.ToDouble(executor.GetLaufzeitzähler())).ToString();
             
+
         }
 
         private void completeListBox1_DoubleClick(object sender, MouseEventArgs e)
@@ -328,6 +360,8 @@ namespace PicSim
         private void button1_Click(object sender, EventArgs e)
         {
             executor.Reset();
+            lastExtTimer = 0;
+            tbLaufzeit.Text = "0";
             printInfo();
         }
 
