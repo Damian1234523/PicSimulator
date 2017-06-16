@@ -240,28 +240,29 @@ namespace PicSim
 
         private void step()
         {
-            
+
             //ExtTimer==========
-
-            if ((executor.GetTrisA() & 0b1_0000) == 0b1_0000)
+            if (checkBBoxExtTimer.Checked)
             {
-
-                int laufzeit = int.Parse(tbLaufzeit.Text);
-                //laufzeit = laufzeit / 1000;
-
-                if (lastExtTimer < (laufzeit/extTimerIntervall))
+                if ((executor.GetTrisA() & 0b1_0000) == 0b1_0000)
                 {
-                    Console.WriteLine("ExtTimer");
-                    lastExtTimer = (laufzeit/extTimerIntervall);
-                    int regA = executor.GetRegisterA();
-                    if ((regA & 0b1_0000) != 0b1_0000)
+
+                    int laufzeit = int.Parse(tbLaufzeit.Text);
+                    //laufzeit = laufzeit / 1000;
+
+                    if (lastExtTimer < (laufzeit / extTimerIntervall))
                     {
-                        
-                        executor.SetRegisterA(4);
+                        Console.WriteLine("ExtTimer");
+                        lastExtTimer = (laufzeit / extTimerIntervall);
+                        int regA = executor.GetRegisterA();
+                        if ((regA & 0b1_0000) != 0b1_0000)
+                        {
+
+                            executor.SetRegisterA(4);
+                        }
                     }
                 }
             }
-
             //==================
 
             executor.Execute(sourceManager.GetSingleArg1(executor.GetPc()));

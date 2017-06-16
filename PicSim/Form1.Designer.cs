@@ -90,6 +90,7 @@
             this.tbWRegister = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbPC = new System.Windows.Forms.TextBox();
+            this.checkBBoxExtTimer = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -136,7 +137,7 @@
             // dokuToolStripMenuItem
             // 
             this.dokuToolStripMenuItem.Name = "dokuToolStripMenuItem";
-            this.dokuToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.dokuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dokuToolStripMenuItem.Text = "Doku";
             this.dokuToolStripMenuItem.Click += new System.EventHandler(this.dokuToolStripMenuItem_Click);
             // 
@@ -565,11 +566,24 @@
             this.tbPC.Size = new System.Drawing.Size(71, 20);
             this.tbPC.TabIndex = 37;
             // 
+            // checkBBoxExtTimer
+            // 
+            this.checkBBoxExtTimer.AutoSize = true;
+            this.checkBBoxExtTimer.Checked = true;
+            this.checkBBoxExtTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBBoxExtTimer.Location = new System.Drawing.Point(1390, 29);
+            this.checkBBoxExtTimer.Name = "checkBBoxExtTimer";
+            this.checkBBoxExtTimer.Size = new System.Drawing.Size(71, 17);
+            this.checkBBoxExtTimer.TabIndex = 38;
+            this.checkBBoxExtTimer.Text = "Activated";
+            this.checkBBoxExtTimer.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.checkBBoxExtTimer);
             this.Controls.Add(this.tbPC);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbWRegister);
@@ -674,6 +688,7 @@
         private System.Windows.Forms.TextBox tbWRegister;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbPC;
+        private System.Windows.Forms.CheckBox checkBBoxExtTimer;
     }
 }
 
