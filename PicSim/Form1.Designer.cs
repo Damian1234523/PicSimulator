@@ -86,6 +86,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbLaufzeit = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbWRegister = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbPC = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.raGridView1)).BeginInit();
@@ -529,11 +533,47 @@
             this.label3.TabIndex = 33;
             this.label3.Text = "Laufzeit in µSec";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(984, 152);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "W Register";
+            // 
+            // tbWRegister
+            // 
+            this.tbWRegister.Location = new System.Drawing.Point(984, 169);
+            this.tbWRegister.Name = "tbWRegister";
+            this.tbWRegister.Size = new System.Drawing.Size(71, 20);
+            this.tbWRegister.TabIndex = 35;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(981, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(21, 13);
+            this.label5.TabIndex = 36;
+            this.label5.Text = "PC";
+            // 
+            // tbPC
+            // 
+            this.tbPC.Location = new System.Drawing.Point(984, 209);
+            this.tbPC.Name = "tbPC";
+            this.tbPC.Size = new System.Drawing.Size(71, 20);
+            this.tbPC.TabIndex = 37;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1467, 563);
+            this.Controls.Add(this.tbPC);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbWRegister);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbLaufzeit);
             this.Controls.Add(this.label2);
@@ -630,6 +670,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbLaufzeit;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbWRegister;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbPC;
     }
 }
 

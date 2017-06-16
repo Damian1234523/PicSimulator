@@ -765,6 +765,12 @@ namespace PicSim
         {
             int erg = 0b1111_1111 & arg;
             DigitalCarryPlus(W, erg);
+            if (W + erg > 255) {
+                SetCarryBit(1);
+            } else
+            {
+                SetCarryBit(0);
+            }
             W = Cut8(W + erg, true);
             ZeroBit(W);
             IncTimer(1);
@@ -812,7 +818,12 @@ namespace PicSim
         private void SUBLW(int arg)
         {
             int erg = 0b1111_1111 & arg;
-            if ((W - erg) < 0) SetCarryBit(1);
+            if ((W - erg) < 0) {
+                SetCarryBit(1);
+            } else
+            {
+                SetCarryBit(0);
+            }
             DigitalCarryMinus(W, erg);
             W = Math.Abs(W - erg);
             W = Cut8(W, true);
