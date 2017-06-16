@@ -140,7 +140,7 @@ namespace PicSim
         void printInfo()
         {
             int s = executor.GetStatus();
-            //statusGridView[0, 0].Value = "test";
+            
             System.Collections.BitArray b = new System.Collections.BitArray(new int[] { s });
             
             for (int i = 0; i <= 7; i++)
@@ -191,7 +191,7 @@ namespace PicSim
             foreach (int reg in R)
             {
                 registerGridView1.Rows[ii].Cells[0].Value = ii;
-                registerGridView1.Rows[ii].Cells[1].Value = Convert.ToString(reg, 2);
+                registerGridView1.Rows[ii].Cells[1].Value = Convert.ToString(reg, 2) + " " + reg.ToString("X2");
                 ii++;
             }
 
