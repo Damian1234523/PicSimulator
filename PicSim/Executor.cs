@@ -617,7 +617,7 @@ namespace PicSim
         {
             int regaddr = 0b0111_1111 & arg;
             int erg = readRegister(regaddr);
-            bool underflow;
+            bool underflow = false;
             if ((erg & 1) == 1)
             {
                 underflow = true;
@@ -639,7 +639,7 @@ namespace PicSim
                 W = erg;
             }
             SetCarryBit(0);
-            if (underflow) SetCarryBit(1);
+            if (underflow) { SetCarryBit(1); }else { SetCarryBit(0); }
             IncTimer(1);
         }
 
