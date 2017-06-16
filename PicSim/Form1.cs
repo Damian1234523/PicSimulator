@@ -18,7 +18,7 @@ namespace PicSim
             InitializeComponent();
             raGridView1.Rows.Add();
             rbGridView1.Rows.Add();
-            registerGridView1.Rows.Add(254);
+            registerGridView1.Rows.Add(255);
             tbFrequency.Text = "1000";
             completeListBox1.MouseDoubleClick += new MouseEventHandler(completeListBox1_DoubleClick);
 

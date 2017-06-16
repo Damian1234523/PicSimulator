@@ -25,7 +25,7 @@ namespace PicSim
         {
             pc = 0;
             W = 0;
-            R = new int[255];
+            R = new int[256];
             Stack = new DropOutStack<int>(8);
             prescaler = 0;
             ignoreBank = false;
@@ -40,7 +40,7 @@ namespace PicSim
         {
             pc = 0;
             W = 0;
-            R = new int[255];
+            R = new int[256];
             Stack = new DropOutStack<int>(8);
             prescaler = 0;
             ignoreBank = false;
